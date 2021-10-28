@@ -1,0 +1,23 @@
+
+body {
+    width: 700px;
+    margin: 0 auto;
+  }
+
+#title{
+    
+    text-align: center;
+}
+#submit{
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(22, 165, 221);
+    background-color: white;
+    color: rgb(22, 165, 221);
+    float: right;
+}
+#submit:hover{
+    color:white;
+    border: 1px solid skyblue;
+    background-color: skyblue;
+}

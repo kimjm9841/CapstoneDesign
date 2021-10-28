@@ -1,9 +1,55 @@
+<!--made by 민수님-->
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="options.css">
   </head>
-  <body>
+  <body> 
+    <form action="./example.php" method="GET">
+      <header><h1>설정</h1></header>
+      <hr>
+      <div>
+        <!--문제1 CSS 적용을 위한 div 범위 선언이 적음-->
+  
+        <nav><ul>
+          <nav>Manager<a href="#" role="button">></a>
+            <!--문제2 네이버의 '더보기'버튼 처럼 눌렀을 때 밑이 나오게 하고싶은데 모르겟음-->
+            <ul>
+            <li>input</li>
+            <li>list</li>
+            <li>check</li>
+            <li>control<a href="#" role="button">></a><ul>
+              <li>growing up <input type="checkbox" name="resting">following<input type="checkbox" name="exercise"></li>
+            </ul>
+            </li>
+          </ul></nav>
+        </ul>
+  
+        <nav><ul>
+          Fairy<a href="#" role="button">></a>
+          <ul>
+            <li>애칭<input type="text" name="fairyname"></button></li>
+            <li>비만도<input type="range"></li>
+             <!--문제3 정도를 표시하기위해 range가 좋아보이는데 이를 수정못하게 고정을 시켜야함-->
+            <li>의상
+              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" >
+              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" >
+              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" ></li>
+            <!--idea) 비만도값이 40이상이면 1단계, 60이상이면 2단계, 80이상이면 3단계로 요정이 바뀌어 보이도록-->
+          </ul>
+  
+  
+  
+        </ul></nav>
+  
+      </div>
+    </form>
+    
+ 
   </body>
+ 
+  <footer><input type="submit" ></footer>
+  <!--문제4 데이터가 php로 안감-->
   <script src="options.js"></script>
 </html>
