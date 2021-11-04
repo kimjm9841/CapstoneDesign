@@ -21,3 +21,55 @@ body {
     border: 1px solid skyblue;
     background-color: skyblue;
 }
+
+ul{
+   list-style:none;
+   padding-left:0px;
+}
+
+
+
+/* calender */
+
+.rap {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.date_head {
+  margin-bottom: 10px;
+}
+
+.date_head div {
+  background: #f03d3d;
+  color: #fff;
+  text-align: center;
+}
+
+.date_form {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+}
+
+.date_form div {
+  width: 75px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dateSel div {
+  font-weight: bold;
+  color: #333;
+  min-height: 70px;
+  padding: 12px 9px;
+  border-radius: 10px;
+  border: 1px solid #f7f7f7;
+}
+
+.background {
+  background: #f7f7f7;
+}
