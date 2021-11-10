@@ -19,7 +19,7 @@
     font-size: 20px;
 }
 
-.answerList:hover, .answerList:focus{
+.answerList:hover, .answerList:focus, .answerList:visited, .answerList:active, .answerText:hover, .answerText:focus{
     background-color: gray;
     color: whitesmoke;
 }
@@ -49,4 +49,19 @@
     background: linear-gradient(to bottom,  #febbbb 0%,#fe9090 45%,#ff5c5c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 ); /* IE6-9 */
     border-radius: 20px;
+}
+.put_custom_wrap input[type=checkbox] + label {
+    display: inline-block;
+    border: 2px solid #bcbcbc;
+    cursor: pointer;
+    text-align: center;
+    margin:auto; /*이거 해도 가운데 정렬 안됨.*/
+}
+.put_custom_wrap input[type=checkbox]:checked + label {
+    background-color: #666666;
+    margin:auto;
+}
+.put_custom_wrap input[type=checkbox] {
+    display: none;
+    margin:auto;
 }

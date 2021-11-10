@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+         rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <!--link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet"-->
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+          <link rel="stylesheet" href="./css/default.css">
+          <link rel="stylesheet" href="./css/main.css">
+          <link rel="stylesheet" href="./css/qna.css">
+          <link rel="stylesheet" href="./css//animation.css">
+          <link rel="stylesheet" href="./css/result.css">
+
+
+    </head>
+    <body>
+        <div class="container">
+            <section id="main" class="mx-auto my-5 py-5 px-3">  
+                <h1>HeYo 운동 맞춤 세팅하기</h1>
+                <div class="col-lg-6 col-md-8 col-sm-10 col- mx-auto">
+                    <img src="./images/main.png" alt="mainImage" class="img-fluid">
+                </div>
+                <p>
+                    운동 맞춤 세팅을 위해 정보 입력하러 가기<br>
+                </p>
+                <button type="button" id="startButton" class="btn btn-danger mt-3">시작하기</button>
+                
+            </section>
+            <section id="qna">
+                <div class="status mx-auto mt-5">
+                    <div class="statusBar">
+
+                    </div>
+                </div>
+                <div class="qBox my-5 py-3 mx-auto">
+
+                </div>
+
+                <div id="q1" style="display:none" class="answerBox">
+                    <textarea id="name" name="q1[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="이름"></textarea>
+                    <div class="okBox"></div>
+                    <button id="ok_btn1" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <div class="okBox"></div>
+                </div>
+                <div id="q2" style="display:none">
+                    <button id="q2_1" class="answerText my-3 py-3 mx-auto fadeIn">응 좋아!</button>
+                    <button id="q2_2" class="answerText my-3 py-3 mx-auto fadeIn">아니 귀찮아...</button>
+                </div>
+                <div id="q3" style="display:none" class="put_custom_wrap">
+                    <input type="checkbox" id="q3_1" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_1">어깨/목</label>
+                    <input type="checkbox" id="q3_2" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_2">손목</label>
+                    <input type="checkbox" id="q3_3" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_3">허리</label>
+                    <input type="checkbox" id="q3_4" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_4">다리</label>
+                    <input type="checkbox" id="q3_5" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_5">발</label>
+                    <input type="checkbox" id="q3_6" name="q3[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q3_6">없어!</label>
+                    <button id="ok_btn3" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <div class="okBox"></div>
+                </div>
+                <div id="q4" style="display:none" class="put_custom_wrap">
+                    <input type="checkbox" id="q4_1" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_1">폼롤러</label>
+                    <input type="checkbox" id="q4_2" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_2">마사지볼</label>
+                    <input type="checkbox" id="q4_3" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_3">덤벨</label>
+                    <input type="checkbox" id="q4_4" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_4">수건</label>
+                    <input type="checkbox" id="q4_5" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_5">밴드</label>
+                    <input type="checkbox" id="q4_6" name="q4[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_6">없어!</label>
+                    <button id="ok_btn4" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <div class="okBox"></div>
+                </div>
+                <div id="q5" style="display:none">
+                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="성격(MBTI)"></textarea>
+                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="키(cm)"></textarea>
+                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="몸무게(kg)"></textarea>
+                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="나이"></textarea>
+                    <button id="ok_btn5" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <div class="okBox"></div>
+                </div>
+            </section>
+            <section id="result">
+                <h1>당신의 결과는?</h1>
+                <div class="resultname">
+
+                </div>
+                <div id="resutImg" class="col-lg-6 col-md-8 col-sm-10 col- mx-auto">
+                </div>
+                <div class="resultDesc">
+
+                </div>
+                <!--button type="button" class="btn btn-danger mt-3" onclick="js:begin()">공유하기</button-->
+                
+            </section>
+        </div>
+    </body>
+    <script src="./js/data.js" charset="utf-8"></script>
+    <script src="./test2_input.js" charset="utf-8"></script>
+</html>

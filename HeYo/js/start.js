@@ -4,6 +4,8 @@ const main=document.querySelector("#main");
 const qna=document.querySelector("#qna");
 const result=document.querySelector("#result");
 const endPoint=6;
+const select1 = [];
+const select2 = [];
 const select = Array(Array());
 
 
@@ -21,6 +23,29 @@ function goResult(){
 
     console.log(select);
     console.log(select[4]);
+}
+function addCheckAnswer(answerText, qIdx, idx){
+    var a=document.querySelector('.answerBox');
+    var answer = document.createElement('input');
+    answer.type = 'checkbox';
+    answer.id = idx;
+    answer.autocomplete='off';
+    answer.id = "btn-check-2-outlined";
+    /*answer.classList.add('btn btn-primary');*/
+    var text = document.createTextNode(answerText);
+    text.label='class=\"btn btn-outline-secondary\" for=\"btn-check-2-outlined\"'
+    /*answer.innerHTML='class="btn btn-primary" for="btn-check"'*/
+    
+    /*var answer = document.createElement('button');
+    answer.classList.add('answerList');
+    answer.classList.add('my-3');
+    answer.classList.add('py-3');
+    answer.classList.add('mx-auto');
+    answer.classList.add('fadeIn');*/
+
+    a.appendChild(answer);
+    a.appendChild(text);
+    //answer.innerHTML=answerText;
 }
 
 function addAnswer(answerText, qIdx, idx){
@@ -109,6 +134,9 @@ function goNext(qIdx){
     for(i in qnaList[qIdx].a){
         console.log(qIdx);
         if(qIdx==0||qIdx==4) {addTextAnswer(qnaList[qIdx].a[i].answer, qIdx, i);}
+        else if(qIdx==3) {
+            addCheckAnswer(qnaList[qIdx].a[i].answer, qIdx, i);
+        }
         else{addAnswer(qnaList[qIdx].a[i].answer, qIdx, i);}
     }
     if(qIdx==0||qIdx==4) addOKButton(qIdx, i);
