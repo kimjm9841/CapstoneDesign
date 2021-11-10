@@ -203,7 +203,8 @@ function goNext(qIdx){
         return;
     }
     var q=document.querySelector('.qBox');
-    q.innerHTML=qnaList[qIdx].q;
+    if(qIdx==4){q.innerHTML='Q5.'+select1[0]+'님'+qnaList[qIdx].q;}
+    else{q.innerHTML=qnaList[qIdx].q;}
     var a=document.getElementById(question[qIdx])
     a.style.display="";
 
