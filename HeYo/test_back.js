@@ -5,7 +5,7 @@ hw.addEventListener('click', function(){
 function bmi_grades(height, weight){
     var bmi_value = weight/(height**2); // (몸무게)/{(키)^2}
     var bmi; //1:저체중, 2:정상, 3:과체중, 4:비만, 5:고도비만
-    
+   
     //bmi 계산
     if(bmi_value<18.5){ bmi=1; } 
         else if(18.5<=bmi_value&&bmi_value<=22.9){ bmi=2; }
@@ -27,6 +27,13 @@ function mbti_rec(bmi){
     else if(tfpj=="TJ"){type=2;}
     else if(tfpj=="FP"){type=3;}
     else if(tfpj=="FJ"){type=4;}
+    //window.alert("bmi는?"+ String(bmi) + " mbti는?"+ String(type));
+    chrome.history.search({text: '', maxResults: 1}, function(data) {
+        data.forEach(function(page) {
+            console.log(page.url);
+        });
+    });   
+    
     window.alert("bmi는?"+ String(bmi) + " mbti는?"+ String(type));
 
     classify(bmi, type);

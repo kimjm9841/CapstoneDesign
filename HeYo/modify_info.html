@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="modify_info.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+     crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="input.css">
     <meta charset="utf-8">
     <title>modify information</title>
   </head>
   <body>
-    <header>
-        <div id="title">
-            <p><h1>modify&nbsp;information</h1></p>
-            <hr/>
+      <section  class = "mx-auto my-5 py-5 px-3">
+        <header>
+            <div id="title">
+                <p><h1>modify&nbsp;information</h1></p>
+                <hr/>
+            </div>
+        </header>
+        <div id="q1" class = "mx-auto px-5">
+            <p>
+                <h3>통증부위</h3>
+                <input type="checkbox" name="q3_1"> 어깨/목 &nbsp;&nbsp;
+                <input type="checkbox" name="q3_2"> 손목 &nbsp;&nbsp;
+                <input type="checkbox" name="q3_3"> 허리 &nbsp;&nbsp;
+                <input type="checkbox" name="q3_4"> 다리 &nbsp;&nbsp;
+                <input type="checkbox" name="q3_5"> 발 &nbsp;&nbsp;
+                <input type="checkbox" name="q3_6"> 없음<br><br>
+            </p>
+            
         </div>
-    </header>
-    <div id="q1">
-        <p>
-            <h2>통증부위</h2>
-            <input type="checkbox" name="q3_1"> 어깨/목 &nbsp;&nbsp;
-            <input type="checkbox" name="q3_2"> 손목 &nbsp;&nbsp;
-            <input type="checkbox" name="q3_3"> 허리 &nbsp;&nbsp;
-            <input type="checkbox" name="q3_4"> 다리 &nbsp;&nbsp;
-            <input type="checkbox" name="q3_5"> 발 &nbsp;&nbsp;
-            <input type="checkbox" name="q3_6"> 없음<br><br>
-        </p>
-        
-    </div>
-    <div id="q2">
-        <p>
-            <h2>기구 사용</h2>
-            <input type="checkbox" name="q4_1"> 폼롤러 &nbsp;&nbsp;
-            <input type="checkbox" name="q4_2"> 마사지볼 &nbsp;&nbsp;
-            <input type="checkbox" name="q4_3"> 덤벨 &nbsp;&nbsp;
-            <input type="checkbox" name="q4_4"> 수건, 밴드 &nbsp;&nbsp;
-            <input type="checkbox" name="q4_5"> 없음<br><br>
-        </p>
-    </div>
-    <div id="q3">
-        <p>
-            <h2>체중</h2>
-            <input type='text' name="weight">kg<br><br>
-        </p>
-    </div>
-    <div id="q4">
-        <p>
-            <h2>신장</h2>
-            <input type='text' name="height">cm<br><br>
-        </p>
-    </div>
-    <div id="q5">
-        <p>
-            <h2>MBTI</h2>
-            <input type='text' name="mbti"><br><br>
-        </p>
-    </div>
-    <div id="btn">
-        <!--<input type="submit" name="submit" value="제출">
-    </form>-->
-        <button id="submit">제출</button>
-    </div>
+        <div id="q2" class = "mx-auto px-5">
+            <p>
+                <h3>기구 사용</h3>
+                <input type="checkbox" name="q4_1"> 폼롤러 &nbsp;&nbsp;
+                <input type="checkbox" name="q4_2"> 마사지볼 &nbsp;&nbsp;
+                <input type="checkbox" name="q4_3"> 덤벨 &nbsp;&nbsp;
+                <input type="checkbox" name="q4_4"> 수건, 밴드 &nbsp;&nbsp;
+                <input type="checkbox" name="q4_5"> 없음<br><br>
+            </p>
+        </div>
+        <div id="q3" class = "mx-auto px-5">
+            <p>
+                <h3>체중</h3>
+                <input type='text' name="weight">kg<br><br>
+            </p>
+        </div>
+        <div id="q4" class = "mx-auto px-5">
+            <p>
+                <h3>신장</h3>
+                <input type='text' name="height">cm<br><br>
+            </p>
+        </div>
+        <div id="q5" class = "mx-auto px-5">
+            <p>
+                <h3>MBTI</h3>
+                <input type='text' name="mbti"><br><br>
+            </p>
+        </div>
+        <div id="btn" class = "mx-auto px-5">
+            <!--<input type="submit" name="submit" value="제출">
+        </form>-->
+            <button id="submit">제출</button>
+        </div>
+    </section>
   </body>
 </html>

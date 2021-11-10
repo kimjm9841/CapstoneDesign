@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	 crossorigin="anonymous">
+
+	 <link rel="preconnect" href="https://fonts.googleapis.com">
+	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	 
 	<link rel="stylesheet" href="input.css">
 	<meta charset="utf-8" />
 </head>
 	<body>
-  	<header>
-			<div id="title">
-					<p><h1>Record</h1></p>
-					<hr/>
+		<section class="mx-auto my-5 py-5 px-3">
+		<header>
+				<div id="title">
+						<p><h1>Record</h1></p>
+						<hr/>
+				</div>
+		</header>
+			<select id="form" name="form_n">
+				<option value="month" selected>월간</option>
+				<option value="day">일간</option>
+				<option value="statistics">통계</option>
+			</select>
+			<div id="calender">
+				<h2 class='date_text' style="text-align: center; padding: 2rem 0">2021년 01월</h2>
+			<div class='date_item rap'>
+				<div class="grid date_form date_head">
+				<div>일</div>
+				<div>월</div>
+				<div>화</div>
+				<div>수</div>
+				<div>목</div>
+				<div>금</div>
+				<div>토</div>
+				</div>
+				<div class="grid date_form dateSel"></div>
 			</div>
-  	</header>
-		<select id="form" name="form_n">
-		    <option value="month" selected>월간</option>
-		    <option value="day">일간</option>
-		    <option value="statistics">통계</option>
-		</select>
-		<div id="calender">
-			<h2 class='date_text' style="text-align: center; padding: 2rem 0">2021년 01월</h2>
-		  <div class='date_item rap'>
-		    <div class="grid date_form date_head">
-		      <div>일</div>
-		      <div>월</div>
-		      <div>화</div>
-		      <div>수</div>
-		      <div>목</div>
-		      <div>금</div>
-		      <div>토</div>
-		    </div>
-		    <div class="grid date_form dateSel"></div>
-		  </div>
-		</div>
-		<div id="checklist" style="display:none">
-			<h2>
-				<ul>
-					<li>전신 유산소 운동</li>
-					<li>다리 스트레칭</li>
-				</ul>
-			</h2>
-		</div>
+			</div>
+			<div id="checklist" style="display:none">
+				<h2>
+					<ul>
+						<li>전신 유산소 운동</li>
+						<li>다리 스트레칭</li>
+					</ul>
+				</h2>
+			</div>
+		</section>
 		<script src="record.js"></script>
+
 	</body>
 </html>
