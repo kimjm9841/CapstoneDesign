@@ -98,7 +98,8 @@ function clicked(){
 
         case 4:
             var tf = isValid_T("q5[]");
-            if(tf==true){
+            var tf_info = checkInfo("q5[]");
+            if(tf==true && tf_info){
                 var arr = document.getElementsByName("q5[]");
                 for(var i=0;i<arr.length;i++){
                     select5[i]=arr[i].value;
@@ -129,6 +130,54 @@ function q2_1_click(){
 function q2_2_click(){
     select2[0]=1;
     disappear("#q2");
+}
+
+function checkInfo(qNum){
+    //세상에서 가장 큰 사람 기준으로 (기네스북) : 272cm니까 280cm까지로 하자.
+    //세상에서 가장 작은 사람 기준으로 (기네스북) : 60cm니까 60cm로 하자.
+    var arr = document.getElementsByName(qNum);
+    var isChecked = true;
+
+    for(var i=1;i<arr.length;i++){
+        if(isNaN(arr[i].value)) {
+            console.log(i);
+            console.log(isNaN(arr[i]));
+            alert("숫자 형태로 입력해주세요.")
+            return false;
+        }
+    }
+    /*for(var i=0;i<arr.length;i++)
+        console.log(arr[i].value);*/
+
+    var height=Number(arr[1].value);
+    var weight=Number(arr[2].value);
+    var age=Number(arr[3].value);
+
+    if(Number.isInteger(age)){ }
+    else{
+        alert("알맞은 나이 형식으로 입력해주세요(소수점, 문자 입력 불가)");
+        return false;
+    }
+
+    if(height>=60 && height<=280) isChecked=true;
+    else {
+        alert("알맞은 키를 입력해주세요(60~280cm)");
+        return false;
+    }
+
+    if(weight>0 && weight<=600) isChecked=true;
+    else {
+        alert("알맞은 몸무게를 입력해주세요(0~600kg)");
+        return false;
+    }
+
+    if(age>=0 && age<140) isChecked=true;
+    else {
+        alert("알맞은 나이를 입력해주세요(0~140세)");
+        return false;
+    }
+
+    return true;
 }
 function isValid(qNum){
     var isChecked = false;

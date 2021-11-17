@@ -24,7 +24,6 @@
       <hr>
       <div class="mx-auto my-5 py-5 px-3">
         <!--문제1 CSS 적용을 위한 div 범위 선언이 적음-->
-  
         <nav><ul>
         <!--<nav>Manager<a href="#" role="button">></a> -->
             <!--문제2 네이버의 '더보기'버튼 처럼 눌렀을 때 밑이 나오게 하고싶은데 모르겟음-->
@@ -36,10 +35,6 @@
                 <li><a href="list.html">list</a></li>
                 <li><a href="record.html">check</a></li>
             <!--<li>control<a href="#" role="button">></a><ul>-->
-                <details>
-                  <summary>control</summary>
-                    <li>growing up <input type="checkbox" name="resting">&nbsp;&nbsp;&nbsp;&nbsp;following <input type="checkbox" name="exercise"></li>
-                </details>
               </ul>
             </p>
           </details><br><br>
@@ -51,18 +46,27 @@
           <p>
             <summary>Fairy</summary>
           <ul>
-            <li>애칭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="fairyname"></button></li>
-            <li>비만도&nbsp;&nbsp;&nbsp;<input type="range"></li>
+            <li>애칭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="fairyname"></button></li><br>
+            <li>비만도 LV.&nbsp;<input type="text" id='body_level' style="width:50px; color:indianred; border:0 solid black;" disabled/>
+            EXP.&nbsp;<input type="text" id='body_value' style="color:indianred; border:0 solid black;" disabled/><br></li>
+            <div class="status">
+              <div class="statusBar">
+
+              </div>
+            </div>
+            <!--/li-->
              <!--문제3 정도를 표시하기위해 range가 좋아보이는데 이를 수정못하게 고정을 시켜야함-->
-            <li>의상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" >
-              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" >
-              <input type="radio" name="select-fairy"><img src="/images/fairy_basic.png" width="100" ></li>
+            <br>
+            <li>의상
+              <div class="fairyCloset">
+
+              </div>
+            </li>
             <!--idea) 비만도값이 40이상이면 1단계, 60이상이면 2단계, 80이상이면 3단계로 요정이 바뀌어 보이도록-->
             <!--<footer><input type="submit" ></footer>-->
             <button id="submit">제출</button>
           </ul>
-        </p>
+          </p>
           </details>
   
   
