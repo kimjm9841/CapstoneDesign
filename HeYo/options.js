@@ -56,6 +56,7 @@ window.onload=function(){
   var fairyclothes=[1,2,3];
   var currentclothes=2;
   //여기까지 변수들이 전달받은 데이터 임시저장하는 변수 ~> data.js에서 받고 그걸 전달받아서 변수에 저장하도록?
+  //여기도 data.js에서 import 받아서 리스트를 변수에 저장하면 될듯
 
   if(body_value>=0&&body_value<=25) body_level=1;
   else if(body_value>=26&&body_value<=50) {body_level=2;}

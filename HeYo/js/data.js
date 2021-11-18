@@ -24,7 +24,18 @@ const qnaList=[
         ]
     },
     {
-        q: 'Q4. 주변에 가지고 있는 운동 도구가 있나요?',
+        q: 'Q4. 선호하시는 운동 부위가 있나요?',
+        a: [
+                {answer: '어깨/목', type: [1]},
+                {answer: '손목', type: [2]},
+                {answer: '허리', type: [3]},
+                {answer: '다리', type: [4]},
+                {answer: '발', type: [5]},
+                {answer: '없어!', type: [6]}
+        ]
+    },
+    {
+        q: 'Q5. 주변에 가지고 있는 운동 도구가 있나요?',
         a: [
                 {answer: '폼롤러', type: [1]},
                 {answer: '마사지볼', type: [2]},
@@ -63,3 +74,6 @@ const infoList=[
         desc: '우린 고구마였어!'
     }
 ]
+
+//일단 데이터 여기다가 적어놓음! 이거 다른 파일에서 php로 받으면 거기로 옮기면 될듯.(html 다 수정해야함_script에서 module 필수!!)
+export const fairyList=["포크", "30", "1"] //순서대로 "이름, 비만도, 의상"

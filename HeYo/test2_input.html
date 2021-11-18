@@ -68,25 +68,41 @@
                     <button id="ok_btn3" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
                     <div class="okBox"></div>
                 </div>
-                <div id="q4" style="display:none" class="put_custom_wrap">
+                <div id="q4" style="display:none" class="put_custom_wrap"> <!--선호 부위-->
                     <input type="checkbox" id="q4_1" name="q4[]">
-                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_1">폼롤러</label>
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_1">어깨/목</label>
                     <input type="checkbox" id="q4_2" name="q4[]">
-                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_2">마사지볼</label>
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_2">손목</label>
                     <input type="checkbox" id="q4_3" name="q4[]">
-                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_3">덤벨</label>
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_3">허리</label>
                     <input type="checkbox" id="q4_4" name="q4[]">
-                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_4">수건</label>
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_4">다리</label>
                     <input type="checkbox" id="q4_5" name="q4[]">
-                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_5">밴드</label>
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_5">발</label>
                     <input type="checkbox" id="q4_6" name="q4[]">
                     <label class="answerText my-3 py-3 mx-auto fadeIn"for="q4_6">없어!</label>
                     <button id="ok_btn4" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
                     <div class="okBox"></div>
                 </div>
-                <div id="q5" style="display:none">
+                <div id="q5" style="display:none" class="put_custom_wrap">
+                    <input type="checkbox" id="q5_1" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_1">폼롤러</label>
+                    <input type="checkbox" id="q5_2" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_2">마사지볼</label>
+                    <input type="checkbox" id="q5_3" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_3">덤벨</label>
+                    <input type="checkbox" id="q5_4" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_4">수건</label>
+                    <input type="checkbox" id="q5_5" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_5">밴드</label>
+                    <input type="checkbox" id="q5_6" name="q5[]">
+                    <label class="answerText my-3 py-3 mx-auto fadeIn"for="q5_6">없어!</label>
+                    <button id="ok_btn5" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <div class="okBox"></div>
+                </div>
+                <div id="q6" style="display:none">
                     <!--textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="성격(MBTI)"></textarea-->
-                    <select id="name" name='q5[]' class="answerText my-3 py-3 mx-auto fadeIn">
+                    <select id="name" name='q6[]' class="answerText my-3 py-3 mx-auto fadeIn">
                         <option value='' selected>--선택--</option>
                         <option value='istj'>ISTJ</option>
                         <option value='istp'>ISTP</option>
@@ -105,17 +121,16 @@
                         <option value='enfj'>ENFJ</option>
                         <option value='enfp'>ENFP</option>
                     </select>
-                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="키(cm)"></textarea>
-                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="몸무게(kg)"></textarea>
-                    <textarea id="name" name="q5[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="나이"></textarea>
-                    <button id="ok_btn5" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
+                    <textarea id="name" name="q6[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="키(cm)"></textarea>
+                    <textarea id="name" name="q6[]" class="answerText my-3 py-3 mx-auto fadeIn" placeholder="몸무게(kg)"></textarea>
+                    <button id="ok_btn6" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
                     <div class="okBox"></div>
                 </div>
             </section>
-            <section id="result">
-                <h1>당신의 결과는?</h1>
+            <section id="result">    
+                <div class="mx-auto my-5 py-5 px-3"><h1>당신의 결과는?</h1></div>
                 <div class="resultname">
-
+                    
                 </div>
                 <div id="resutImg" class="col-lg-6 col-md-8 col-sm-10 col- mx-auto">
                 </div>
@@ -123,10 +138,11 @@
 
                 </div>
                 <!--button type="button" class="btn btn-danger mt-3" onclick="js:begin()">공유하기</button-->
-                
+                <button id="ok_btnR" class="answerText my-3 py-3 mx-auto fadeIn">확인</button>
             </section>
         </div>
     </body>
     <script src="./js/data.js" charset="utf-8"></script>
-    <script src="./test2_input.js" charset="utf-8"></script>
+    <script src="./test2_input.js" charset="utf-8" type="module"></script>
+    <script src="./test2_back.js" type="module"></script>
 </html>
