@@ -27,6 +27,76 @@ window.onload = function() {
 }
 
 
+new Chart(document.getElementById("achivementChart"), {
+  type: 'bar',
+  data: {
+    labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
+    datasets: [{
+        data: [46,14,26,36,57,11],
+        label: "달성도(%)",
+        backgroundColor: "#3e95cd",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '수행한 운동 수 / 계획한 운동 수'
+    }
+  }
+});
+
+
+new Chart(document.getElementById("exerciseChart"), {
+  type: 'line',
+  data: {
+    labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
+    datasets: [{
+          data: [1106,1123,1162,1092,1177,1126],
+          label: "운동량(분)",
+          backgroundColor: "#c45850",
+          borderColor: "#c45850",
+          fill: false
+        }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '일주일간 수행한 총 운동시간'
+    }
+  }
+});
+
+
+new Chart(document.getElementById("percentageChart"), {
+  type: 'bar',
+    data: {
+      labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
+      datasets: [
+        {
+          label: "달성도",
+          backgroundColor: "#3e95cd",
+          data: [33,21,83,78,11,45]
+        }, {
+          label: "운동량",
+          backgroundColor: "#c45850",
+          data: [8,47,75,34,66,92]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: '상대평가 (백분위 75 = 상위 25%)'
+      }
+    }
+});
+
+
+// combo box가 바뀔 때마다 화면 변경
 document.getElementById("form").addEventListener("click", changeSelect);
 
 function changeSelect() {
@@ -36,9 +106,9 @@ function changeSelect() {
 
   if (selectValue == "month") {
     document.getElementById("calender").style.display = "block";
-    document.getElementById("checklist").style.display = "none";
-  } else if (selectValue == "day") {
+    document.getElementById("statistics").style.display = "none";
+  } else if (selectValue == "statistics") {
     document.getElementById("calender").style.display = "none";
-    document.getElementById("checklist").style.display = "block";
+    document.getElementById("statistics").style.display = "block";
   }
 }

@@ -9,7 +9,7 @@
 	 <link rel="preconnect" href="https://fonts.googleapis.com">
 	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-	 
+
 	<link rel="stylesheet" href="input.css">
 	<meta charset="utf-8" />
 </head>
@@ -22,11 +22,10 @@
 				</div>
 		</header>
 			<select id="form" name="form_n">
-				<option value="month" selected>월간</option>
-				<option value="day">일간</option>
-				<option value="statistics">통계</option>
+				<option value="statistics" selected>통계</option>
+				<option value="month">월간</option>
 			</select>
-			<div id="calender">
+			<div id="calender" style="display:none">
 				<h2 class='date_text' style="text-align: center; padding: 2rem 0">2021년 01월</h2>
 			<div class='date_item rap'>
 				<div class="grid date_form date_head">
@@ -41,12 +40,26 @@
 				<div class="grid date_form dateSel"></div>
 			</div>
 			</div>
-			<div id="checklist" style="display:none">
+			<div id="statistics">
 				<h2>
-					<ul>
-						<li>전신 유산소 운동</li>
-						<li>다리 스트레칭</li>
-					</ul>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+					<div id="achivement">
+						<canvas id="achivementChart" width="300" height="250"></canvas>
+						<button type="button" style="float:right; border:0; background-color:#f5f5f5;"
+										onclick="achivement.style.display = 'none'; exercise.style.display = 'block';"><img src="images/next.png"></button>
+					</div>
+					<div id="exercise" style="display:none">
+						<canvas id="exerciseChart" width="300" height="250"></canvas>
+						<button type="button" style="float:left; border:0; background-color:#f5f5f5;"
+										onclick="exercise.style.display = 'none'; achivement.style.display = 'block';"><img src="images/previous.png"></button>
+						<button type="button" style="float:right; border:0; background-color:#f5f5f5;"
+										onclick="exercise.style.display = 'none'; percentage.style.display = 'block';"><img src="images/next.png"></button>
+					</div>
+					<div id="percentage" style="display:none">
+						<canvas id="percentageChart" width="300" height="250"></canvas>
+						<button type="button" style="float:left; border:0; background-color:#f5f5f5;"
+										onclick="percentage.style.display = 'none'; exercise.style.display = 'block';"><img src="images/previous.png"></button>
+					</div>
 				</h2>
 			</div>
 		</section>
