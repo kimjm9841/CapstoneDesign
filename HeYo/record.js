@@ -1,32 +1,3 @@
-function getDate(date) {
-  return date.toLocaleDateString().replace(/\./g, "").split(" ");
-}
-
-const pad = (str) => str > 9 ? str : '0' + str;
-
-window.onload = function() {
-  const ToDay = new Date();
-  const nowMonth = ToDay.getMonth();
-  const [y, m] = getDate(new Date(ToDay.setMonth(nowMonth)));
-  const lastDay = getDate(new Date(y, m, 0)).pop() * 1;
-  const day = new Date([y, m, 1].join("-")).getDay() * 1;
-  const maxDay = Math.ceil((day + lastDay) / 7) * 7;
-
-  let html = '';
-
-  for (let i = 1; i <= maxDay; i++) {
-    const diff = i - day;
-    const d = diff <= lastDay && i > day ? diff : '';
-    const tmpClass = !d ? 'background' : '';
-
-    html += `<div class="dateSel ${tmpClass}">${d}</div>`;
-  }
-
-  document.querySelector('.dateSel').innerHTML = html;
-  document.querySelector('.date_text').innerText = `${y}년 ${pad(m)}월`;
-}
-
-
 new Chart(document.getElementById("achivementChart"), {
   type: 'bar',
   data: {
@@ -96,19 +67,22 @@ new Chart(document.getElementById("percentageChart"), {
 });
 
 
-// combo box가 바뀔 때마다 화면 변경
-document.getElementById("form").addEventListener("click", changeSelect);
+document.getElementById('achiv_next').onclick = function(){
+  document.getElementById('achivement').style.display = 'none';
+  document.getElementById('exercise').style.display = 'block';
+}
 
-function changeSelect() {
-  var select = document.getElementById("form");
-  // select element에서 선택된 option의 value가 저장된다.
-  var selectValue = select.options[select.selectedIndex].value;
+document.getElementById('exer_previous').onclick = function(){
+  document.getElementById('exercise').style.display = 'none';
+  document.getElementById('achivement').style.display = 'block';
+}
 
-  if (selectValue == "month") {
-    document.getElementById("calender").style.display = "block";
-    document.getElementById("statistics").style.display = "none";
-  } else if (selectValue == "statistics") {
-    document.getElementById("calender").style.display = "none";
-    document.getElementById("statistics").style.display = "block";
-  }
+document.getElementById('exer_next').onclick = function(){
+  document.getElementById('exercise').style.display = 'none';
+  document.getElementById('percentage').style.display = 'block';
+}
+
+document.getElementById('per_previous').onclick = function(){
+  document.getElementById('percentage').style.display = 'none';
+  document.getElementById('exercise').style.display = 'block';
 }

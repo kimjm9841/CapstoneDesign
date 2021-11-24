@@ -11,7 +11,7 @@
 	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="input.css">
-	<meta charset="utf-8" />
+	<meta charset="utf-8"/>
 </head>
 	<body>
 		<section class="mx-auto my-5 py-5 px-3">
@@ -21,44 +21,25 @@
 						<hr/>
 				</div>
 		</header>
-			<select id="form" name="form_n">
-				<option value="statistics" selected>통계</option>
-				<option value="month">월간</option>
-			</select>
-			<div id="calender" style="display:none">
-				<h2 class='date_text' style="text-align: center; padding: 2rem 0">2021년 01월</h2>
-			<div class='date_item rap'>
-				<div class="grid date_form date_head">
-				<div>일</div>
-				<div>월</div>
-				<div>화</div>
-				<div>수</div>
-				<div>목</div>
-				<div>금</div>
-				<div>토</div>
-				</div>
-				<div class="grid date_form dateSel"></div>
-			</div>
-			</div>
 			<div id="statistics">
 				<h2>
-					<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+					<script src="Chart.min.js"></script>
 					<div id="achivement">
 						<canvas id="achivementChart" width="300" height="250"></canvas>
 						<button type="button" style="float:right; border:0; background-color:#f5f5f5;"
-										onclick="achivement.style.display = 'none'; exercise.style.display = 'block';"><img src="images/next.png"></button>
+										id="achiv_next"><img src="images/next.png"></button>
 					</div>
 					<div id="exercise" style="display:none">
 						<canvas id="exerciseChart" width="300" height="250"></canvas>
 						<button type="button" style="float:left; border:0; background-color:#f5f5f5;"
-										onclick="exercise.style.display = 'none'; achivement.style.display = 'block';"><img src="images/previous.png"></button>
+										id="exer_previous"><img src="images/previous.png"></button>
 						<button type="button" style="float:right; border:0; background-color:#f5f5f5;"
-										onclick="exercise.style.display = 'none'; percentage.style.display = 'block';"><img src="images/next.png"></button>
+										id="exer_next"><img src="images/next.png"></button>
 					</div>
 					<div id="percentage" style="display:none">
 						<canvas id="percentageChart" width="300" height="250"></canvas>
 						<button type="button" style="float:left; border:0; background-color:#f5f5f5;"
-										onclick="percentage.style.display = 'none'; exercise.style.display = 'block';"><img src="images/previous.png"></button>
+										id="per_previous"><img src="images/previous.png"></button>
 					</div>
 				</h2>
 			</div>
