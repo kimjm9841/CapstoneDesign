@@ -11,6 +11,7 @@ chrome.notifications.create(getNotificationId(), {
     ]
 }, function(id) { console.log("Last error:", chrome.runtime.lastError); });
 
+chrome.tabs.create({url: "chrome-extension://opkjgffjlcbefefmjhejbnjplgolhebj/test2_input.html"});
 
 function getNotificationId() {
   var id = Math.floor(Math.random() * 9007199254740992) + 1;

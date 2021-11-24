@@ -1,8 +1,5 @@
 {
   "name": "HeYo - Exercise Manager",
-  "storage": {
-    "managed_schema": ["exList.json", "userInfo.json"]
-  },
   "description": "Start exercising that's perfect for you right now!",
   "version": "1.0",
   "manifest_version": 3,
