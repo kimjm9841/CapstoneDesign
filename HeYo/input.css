@@ -102,3 +102,53 @@ body {
 .background {
   background: #f7f7f7;
 }
+
+/*운동 리스트*/
+
+.listEntry{
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  width: 80%;
+  border: 0px;
+  font-size: 20px;
+  color: black;
+  margin-right: 5px;
+
+}
+.listBtn{
+  background-color: whitesmoke;
+  border-radius: 20px;
+  width: 8%;
+  border: 0px solid gray;
+  color: black;
+  margin-right: 5px;
+}
+.listBtn:hover, .listBtn:focus, .listBtn:visited, .listBtn:active{
+  background-color: gray;
+  color: whitesmoke;
+  margin-right: 5px;
+}
+.listpopBtn{
+  background-color: whitesmoke;
+  border-radius: 20px;
+  width: 30%;
+  border: 1px solid gray;
+  color: black;
+  margin-right: 5px;
+}
+.listpopBtn:hover, .listpopBtn:focus, .listpopBtn:visited, .listpopBtn:active{
+  background-color: gray;
+  color: whitesmoke;
+  margin-right: 5px;
+}
+/*.btnGroup{
+  text-align: center;
+}*/
+.dayGroup{
+  text-align: center;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  border: 1px solid gray;
+  margin-right: 5px;
+  width: 10%;
+}

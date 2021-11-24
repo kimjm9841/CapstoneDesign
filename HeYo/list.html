@@ -16,21 +16,24 @@
         <!--title>exercise lists</title-->
     </head>
     <body>
-        <section class ="mx-auto my-5 py-5 px-3">
-            <header>
-                <div id="title">
-                    <p><h1>운동 목록</h1></p>
-                    <hr/>
+        <div class="container">
+            <section class ="mx-auto my-5 py-5 px-3">
+                <header>
+                    <div id="title">
+                        <p><h1>운동 목록</h1></p>
+                        <hr/>
+                    </div>
+                    <div id="menu">
+                        <p>&nbsp;&nbsp;&nbsp;등록된 운동 목록
+                            <button type="button" class="listBtn" style="float:right" id="addBtn"><img src="/images/plus-sign.png" alt="addBtn" width="30"></button>
+                        <hr/>
+                </header>
+                <div class="lists">
+
                 </div>
-                <div id="menu">
-                    <p>&nbsp;&nbsp;&nbsp;등록된 운동 목록
-                        <input type="submit" id="submit" value="제출"></p>
-                    <hr/>
-                </div>
-                <div id="list">
-                    
-                </div>
-            </header>
-        </section>
+            </section>
+        </div>
     </body>
+    <script src="list.js" type="module"></script>
+    <script src="./js/getData.js" type="module"></script>
 </html>

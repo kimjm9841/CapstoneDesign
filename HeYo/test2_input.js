@@ -78,6 +78,7 @@ document.getElementById("q5_4").addEventListener('click',function(){
 document.getElementById("q5_5").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q5[]");
     if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
+document.getElementById("ok_btnR").addEventListener('click', saveData());
 
 function clicked(){ 
     var children;
@@ -163,6 +164,7 @@ function No_chk(qNum) {
 function q2_1_click(){
     select2[0]=0;
     disappear("#q2");
+    goResult(true);
 }
 
 function q2_2_click(){
@@ -250,7 +252,14 @@ function disappear(qName){
     }, 450)
 }
 
-function goResult(){
+function saveData(){
+    let items = {key: value1, key2: value2}
+    chrome.strage.local.set(items, function(){
+        console.log("저장되었습니다.")
+    });
+}
+
+function goResult(isq2){
     qna.style.WebkitAnimation = "fadeOut 1s";
     qna.style.WebkitAnimation = "fadeOut 1s";
     setTimeout(()=>{
@@ -268,11 +277,41 @@ function goResult(){
     console.log(select4);
     console.log(select5);
     console.log(select6);
+
+    var resultArea = document.querySelector('.resultDesc'); 
+    var result_title;
+    var result_desc = document.createElement("p");
+    var mbti_id=0;
+    var bmi_id=0;
+    if(select6[0]=='isfp' || select6[0]=='infp' || select6[0]=='esfp' || select6[0]=='enfp') mbti_id=0;
+    else if(select6[0]=='isfj' || select6[0]=='infj' || select6[0]=='esfj' || select6[0]=='enfj') mbti_id=1;
+    else if(select6[0]=='istp' || select6[0]=='intp' || select6[0]=='estp' || select6[0]=='entp') mbti_id=2;
+    else if(select6[0]=='istj' || select6[0]=='intj' || select6[0]=='estj' || select6[0]=='entj') mbti_id=3;
+    console.log(mbti_result[mbti_id]);
+
+    //result_desc.setAttribute("style", "text-align:center");
+    //result_desc.innerHTML = select1+mbti_result[mbti_id].desc;
+    resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;';
+    //resultArea.appendChild(result_desc);
+
+    var height=select6[1]*0.01;
+    var height_2=height*height;
+    var bmi=select6[2]/height_2;
+    if(bmi>=30){
+        //var result_bmi = document.createElement("p");
+        //result_bmi.setAttribute("style", "text-align:center");
+        //result_bmi.innerHTML = bmi_result[0].desc;
+        //resultArea.appendChild(result_bmi);
+        resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;'+bmi_result[0].desc;
+    }
+
+
+
 }
 
 function goNext(qIdx){
     if(qIdx+1 === endPoint){
-        goResult();
+        goResult(false);
         return;
     }
     var q=document.querySelector('.qBox');
