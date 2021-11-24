@@ -78,7 +78,6 @@ document.getElementById("q5_4").addEventListener('click',function(){
 document.getElementById("q5_5").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q5[]");
     if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
-document.getElementById("ok_btnR").addEventListener('click', saveData());
 
 function clicked(){ 
     var children;
@@ -252,13 +251,6 @@ function disappear(qName){
     }, 450)
 }
 
-function saveData(){
-    let items = {key: value1, key2: value2}
-    chrome.strage.local.set(items, function(){
-        console.log("저장되었습니다.")
-    });
-}
-
 function goResult(isq2){
     qna.style.WebkitAnimation = "fadeOut 1s";
     qna.style.WebkitAnimation = "fadeOut 1s";
@@ -305,6 +297,16 @@ function goResult(isq2){
         resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;'+bmi_result[0].desc;
     }
 
+    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2]}, function() {
+        /*console.log('Value is set to ' + user_name);
+        console.log(pain);
+        console.log(pre);
+        console.log(equi);
+        console.log(mbti);
+        console.log(height);
+        console.log(weight);*/
+        console.log("저장되었습니다~");
+      });
 
 
 }

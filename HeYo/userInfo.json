@@ -1,0 +1,19 @@
+{
+    "title": "유저 스키마",
+    "description": "이 스키마는 유저 관련 정보를 저장하는 스키마입니다.",
+
+    "type": "object",
+    "properties": {
+        "user_name":{"type":"string"},
+        "pain":{"type":"array"},
+        "pre":{"type":"array"},
+        "equi":{"type":"array"},
+        "mbti":{"type":"string"},
+        "height":{"type":"number"},
+        "weight":{"type":"number"},
+        "fairy_name":{"type":"string"},
+        "fairy_bmi":{"type":"number"},
+        "fairy_current_clothes":{"type":"number"},
+        "fairy_closet":{"type":"object"}
+    }
+}

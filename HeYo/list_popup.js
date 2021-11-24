@@ -32,5 +32,13 @@ var ex_time;
         inputArea.innerHTML=ex_name+" "+ex_time+" "+ex_link+" "+ex_date;
         //window.alert(ex_name, ex_time, ex_link);
         //window.close();
+
+        chrome.storage.sync.set({name:ex_name, time:ex_time, date:ex_date, link:ex_link}, function() {
+            console.log('Value is set to ' + ex_name);
+            console.log("저장되었습니다~");
+          });
+          
     });
 //}
+
+chrome.storage.sync.set({name:ex_name, time:ex_time, date:ex_date, link:ex_link});

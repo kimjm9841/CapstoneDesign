@@ -46,17 +46,10 @@ function constructOptions(buttonColors) {
   });
 }
 */
+function setInfo(fairyname, body_value, currentclothes, fairyclothes){
+  console.log(fairyname, body_value, currentclothes, fairyclothes);
 
-window.onload=function(){
-  //실행할 내용
-  //::비만도:: 0~25 - 1단계, 26~50 - 2단계, 51~75 - 3단계, 76~100 - 4단계
-  var body_value=26;
-  var body_level=0;
-  var fairyname="포크";
-  var fairyclothes=[1,2,3];
-  var currentclothes=2;
-  //여기까지 변수들이 전달받은 데이터 임시저장하는 변수 ~> data.js에서 받고 그걸 전달받아서 변수에 저장하도록?
-  //여기도 getData.js에서 import 받아서 리스트를 변수에 저장하면 될듯
+  console.log("요정 비만도", body_value, typeof(body_value));
 
   if(body_value>=0&&body_value<=25) body_level=1;
   else if(body_value>=26&&body_value<=50) {body_level=2;}
@@ -96,6 +89,29 @@ window.onload=function(){
   }
   console.log(fairycloset);
 }
+window.onload=function(){
+  //chrome.storage에서 데이터 받기
+  let keys=["fairy_name", "fairy_bmi", "fairy_current_clothes", "fairy_closet"]
+  var fairyname, body_value, currentclothes, fairyclothes;
+  chrome.storage.sync.get(keys, function(result) {
+      let fairyname = result.fairy_name;
+      document.getElementById('fairyname').value=result.fairy_name;
+      let body_value = result.fairy_bmi;
+      let currentclothes = result.fairy_current_clothes;
+      let fairyclothes = result.fairy_closet;
+      setInfo(fairyname, body_value, currentclothes, fairyclothes);
+    });
+}
+
+var submitBtn = document.getElementById("submitBtn");
+submitBtn.addEventListener('click', function(){
+  var fairyname = document.getElementById('fairyname').value;
+  var currentclothes = document.querySelector('input[name="fairyclothes"]:checked').value;
+  chrome.storage.sync.set({fairy_name:fairyname, fairy_current_clothes:currentclothes}, function() {
+    console.log('Value is set to ' + fairyname+" "+currentclothes);
+    console.log("저장되었습니다~");
+  });
+});
 //제출 눌렀을 때 데이터 저장(요정이름, 요정 옷 번호)+전송되도록
 
 //constructOptions(presetButtonColors);
