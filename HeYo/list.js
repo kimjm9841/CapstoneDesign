@@ -1,4 +1,5 @@
 //import {exerciseList} from './js/getData.js';
+/* 추가했을 때 바로 페이지 새로고침 */
 var exList = [];
 
 document.getElementById("addBtn").addEventListener('click', function(){
@@ -21,18 +22,6 @@ window.onload=function(){
     var length=exList.length;
     console.log("length: ",length);
 }
-
-function confirmModal(id) {
-    console.log("뭐가 눌렸지? "+id);
-
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      //document.body.style.background = "#1abc9c";
-      //exerciseList.splice(id); //데이터 업로드(이 상태에선 안됨..)
-      location.reload(); //새로고침
-    } else {
-      console.log("취소. 변화 없음");
-    }
-  }
 
 function setInfo(exList_t){
     exList=exList_t;
@@ -61,10 +50,13 @@ function setInfo(exList_t){
             delete_btn.setAttribute("id", i);
             delete_btn.innerHTML='<img src="/images/trash-can.png" width="40">'
             delete_btn.addEventListener("click", function(){
-                //confirmModal(this.id);
                 //exList.splice(i, 1);
-                delete_entry(this.id);
-                location.reload();
+                if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+                    delete_entry(this.id);
+                    location.reload();                
+                }else{   //취소
+                    console.log("취소 안함.");
+                }
             }); 
 
             modify_btn.classList.add('listBtn');
@@ -93,6 +85,7 @@ function setInfo(exList_t){
         }
     }
 }
+
 
 function delete_entry(id){
     console.log("id", id, exList, typeof(exList), typeof(exList[0]), exList[0]);

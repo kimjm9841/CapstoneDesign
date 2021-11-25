@@ -1,6 +1,7 @@
 // 설정창에서 할 기능 구현
 // 밑에 내용 다 지워도 되는 건데 혹시 참고가 될까봐 일단 냅뒀어요
 
+/* 3~4단계에서는 옷장 없애버리게 수정하기.. (옷 관련 번호 무시한 링크 작성) */
 let page = document.getElementById("buttonDiv");
 let selectedClassName = "current";
 const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
@@ -137,8 +138,8 @@ submitBtn.addEventListener('click', function(){
       console.log('Value is set to ' + fairyname+" "+currentclothes);
       console.log("저장되었습니다~");
     });
-  
   }
+  window.alert("설정이 완료되었습니다.");
 });
 //제출 눌렀을 때 데이터 저장(요정이름, 요정 옷 번호)+전송되도록
 

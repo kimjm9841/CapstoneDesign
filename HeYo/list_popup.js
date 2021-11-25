@@ -18,7 +18,7 @@ window.onload=function(){
             chrome.storage.sync.get("exList", function(result) {
                 let exList = result.exList
                 setInfo(exList);
-                ex_id=exList.length;
+                if(exList!=null) ex_id=exList.length;
                 console.log('Value currently is ', exList, "id", ex_id);
             });
             document.getElementById("ok_btn").addEventListener('click', function(){
@@ -36,7 +36,8 @@ window.onload=function(){
                     //window.close();
                     //ex_id=getExId();
                 console.log("저장 직전 id", ex_id);
-                exList.push({"id":ex_id,"name":ex_name, "time":ex_time, "date":ex_date, "link":ex_link});
+                if(exList==null){ exList=new Array({"id":0, "name":ex_name, "time":ex_time, "date":ex_date, "link":ex_link}); }
+                else{ exList.push({"id":ex_id,"name":ex_name, "time":ex_time, "date":ex_date, "link":ex_link}); }
                 chrome.storage.sync.set({exList}, function() {
                     console.log('Value is set to ', exList);
                     console.log("저장되었습니다~");
