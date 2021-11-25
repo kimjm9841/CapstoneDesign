@@ -163,7 +163,8 @@ function No_chk(qNum) {
 function q2_1_click(){
     select2[0]=0;
     disappear("#q2");
-    goResult(true);
+    location.replace("/list.html");
+    //goResult(true);
 }
 
 function q2_2_click(){
@@ -297,7 +298,8 @@ function goResult(isq2){
         resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;'+bmi_result[0].desc;
     }
 
-    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2]}, function() {
+    var fairycloset=[1,2,3];
+    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2], fairy_bmi:1, fairy_name:"요정", fairy_closet:fairycloset}, function() {
         /*console.log('Value is set to ' + user_name);
         console.log(pain);
         console.log(pre);
@@ -306,8 +308,7 @@ function goResult(isq2){
         console.log(height);
         console.log(weight);*/
         console.log("저장되었습니다~");
-      });
-
+      }); 
 
 }
 

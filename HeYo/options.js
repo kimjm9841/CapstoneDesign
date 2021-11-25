@@ -71,17 +71,35 @@ function setInfo(fairyname, body_value, currentclothes, fairyclothes){
 
   //옷장 구현
   var fairycloset=document.querySelector('.fairyCloset');
-  for(var i=0;i<fairyclothes.length;i++){
+  if(fairyclothes!=null){
+    for(var i=0;i<fairyclothes.length;i++){
+      var selecttag1=document.createElement("input");
+      selecttag1.setAttribute("type", "radio");
+      selecttag1.setAttribute("name", "fairyclothes");
+      selecttag1.setAttribute("value", fairyclothes[i]);
+      selecttag1.setAttribute("id",i);
+      if(fairyclothes[i]==currentclothes) selecttag1.setAttribute("checked", ""); //현재 입힌 옷에 체크해두기
+      
+      var lbl1 = document.createElement("label");
+      lbl1.setAttribute("for", i);
+      lbl1.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;<img src='+'"/images/fairy_lv'+body_level+'_'+fairyclothes[i]+'.png"'+'width="200"> &nbsp;&nbsp;&nbsp;'; 
+                        //'"/images/fairy_basic.png"' <= 이 부분 /images/fairy_(숫자).png 이런식으로 바꾸면 동적으로 바뀔듯
+
+      fairycloset.appendChild(selecttag1);
+      fairycloset.appendChild(lbl1);
+    }
+  }
+  else{
     var selecttag1=document.createElement("input");
     selecttag1.setAttribute("type", "radio");
     selecttag1.setAttribute("name", "fairyclothes");
-    selecttag1.setAttribute("value", fairyclothes[i]);
+    selecttag1.setAttribute("value", 0);
     selecttag1.setAttribute("id",i);
-    if(fairyclothes[i]==currentclothes) selecttag1.setAttribute("checked", ""); //현재 입힌 옷에 체크해두기
+    selecttag1.setAttribute("checked", ""); //현재 입힌 옷에 체크해두기
     
     var lbl1 = document.createElement("label");
     lbl1.setAttribute("for", i);
-    lbl1.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;<img src='+'"/images/fairy_'+fairyclothes[i]+'.png"'+'width="200"> &nbsp;&nbsp;&nbsp;'; 
+    lbl1.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;<img src='+'"/images/fairy_lv'+body_level+'.png"'+'width="200"> &nbsp;&nbsp;&nbsp;'; 
                       //'"/images/fairy_basic.png"' <= 이 부분 /images/fairy_(숫자).png 이런식으로 바꾸면 동적으로 바뀔듯
 
     fairycloset.appendChild(selecttag1);
@@ -89,6 +107,7 @@ function setInfo(fairyname, body_value, currentclothes, fairyclothes){
   }
   console.log(fairycloset);
 }
+
 window.onload=function(){
   //chrome.storage에서 데이터 받기
   let keys=["fairy_name", "fairy_bmi", "fairy_current_clothes", "fairy_closet"]
@@ -107,10 +126,19 @@ var submitBtn = document.getElementById("submitBtn");
 submitBtn.addEventListener('click', function(){
   var fairyname = document.getElementById('fairyname').value;
   var currentclothes = document.querySelector('input[name="fairyclothes"]:checked').value;
-  chrome.storage.sync.set({fairy_name:fairyname, fairy_current_clothes:currentclothes}, function() {
-    console.log('Value is set to ' + fairyname+" "+currentclothes);
-    console.log("저장되었습니다~");
-  });
+  if(currentclothes==0){
+    chrome.storage.sync.set({fairy_name:fairyname}, function() {
+      console.log('Value is set to ' + fairyname+" "+currentclothes);
+      console.log("저장되었습니다~");
+    });  
+  }
+  else{
+    chrome.storage.sync.set({fairy_name:fairyname, fairy_current_clothes:currentclothes}, function() {
+      console.log('Value is set to ' + fairyname+" "+currentclothes);
+      console.log("저장되었습니다~");
+    });
+  
+  }
 });
 //제출 눌렀을 때 데이터 저장(요정이름, 요정 옷 번호)+전송되도록
 
