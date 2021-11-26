@@ -489,12 +489,28 @@ function compare(){
     });
     console.log(exercise)
 
+
+    var img_url1 = 'https://img.youtube.com/vi/';
+    var img_url2 = '/2.jpg';
+    
+    var img_list = [];
+    for(var i = 0; i < exercise.length ; i++){
+        img_list[i] = exercise[i]['link'].substring(32);
+    }
+
+    console.log(img_list);
+
+
     var exerciseArea = document.querySelector('.exerciseList');
     var elem = ""
     console.log("Recommend for "+ USERINFO[0] + " is")
     for(var i = 0; i<exercise.length ; i++){
         console.log(exercise[i]['link']);
-        exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>" + exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc + "</a> <br>";
+        exerciseArea.innerHTML += "<img src='" + img_url1 + img_list[i] + img_url2 +"' width='200'>";
+        exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>" 
+        + exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc
+        + "</a> <br>";
+        
         if(exercise[i]['point'] != exercise[i+1]['point']){
             break;
         }      
