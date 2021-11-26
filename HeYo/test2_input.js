@@ -7,6 +7,9 @@ document.getElementById("startButton").addEventListener("click", begin);
 const main=document.querySelector("#main");
 const qna=document.querySelector("#qna");
 const result=document.querySelector("#result");
+
+
+
 const endPoint=7;
 const question = new Array("q1", "q2", "q3", "q4", "q5", "q6");
 
@@ -31,55 +34,30 @@ document.getElementById("ok_btn6").addEventListener('click', clicked);
 document.getElementById("q3_6").addEventListener('click', function(){No_chk("q3[]");});
 document.getElementById("q4_6").addEventListener('click', function(){No_chk("q4[]");});
 document.getElementById("q5_6").addEventListener('click', function(){No_chk("q5[]");});
-document.getElementById("ok_btnR").addEventListener('click', compare);
 
 document.getElementById("q3_1").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[5].checked==true){No_chk("q3[]");}}, false);
+    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
 document.getElementById("q3_2").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[5].checked==true){No_chk("q3[]");}}, false);
+    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
 document.getElementById("q3_3").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[5].checked==true){No_chk("q3[]");}}, false);
-document.getElementById("q3_4").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[5].checked==true){No_chk("q3[]");}}, false);    
-document.getElementById("q3_5").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[5].checked==true){No_chk("q3[]");}}, false);
+    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
 
 document.getElementById("q4_1").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[5].checked==true){No_chk("q4[]");}}, false);
+    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
 document.getElementById("q4_2").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[5].checked==true){No_chk("q4[]");}}, false);
-document.getElementById("q4_3").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[5].checked==true){No_chk("q4[]");}}, false);
-document.getElementById("q4_4").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[5].checked==true){No_chk("q4[]");}}, false);    
-document.getElementById("q4_5").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[5].checked==true){No_chk("q4[]");}}, false);
+    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
+document.getElementById("q4_3").addEventListener('click',function(){
+    var tmpEle = document.getElementsByName("q4[]"); 
+    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
 
 document.getElementById("q5_1").addEventListener('click',function(){ 
     var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
-document.getElementById("q5_2").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
-document.getElementById("q5_3").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
-document.getElementById("q5_4").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);    
-document.getElementById("q5_5").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[5].checked==true){No_chk("q5[]");}}, false);
+    if(tmpEle[1].checked==true){No_chk2("q5[]");}}, false);
 
 function clicked(){ 
     var children;
@@ -151,9 +129,22 @@ function clicked(){
 }
 function No_chk(qNum) {	
     var tmpEle = document.getElementsByName(qNum) // name 이 Job 인 객체만 추출
-    if (tmpEle[5].checked == true) { //'없어'가 체크가 되면
+    if (tmpEle[3].checked == true) { //'없어'가 체크가 되면
         for (var i = 0; i < tmpEle.length; i++) { //선택한 등급을 제외한 수만큼 for 수행. i는 등급 위치
-            if(i != 5)
+            if(i != 3)
+            {
+                if (tmpEle[i].checked == true) {
+                    tmpEle[i].checked = false;
+                }		
+            }
+        }
+    }
+}
+function No_chk2(qNum) {	
+    var tmpEle = document.getElementsByName(qNum) // name 이 Job 인 객체만 추출
+    if (tmpEle[1].checked == true) { //'없어'가 체크가 되면
+        for (var i = 0; i < tmpEle.length; i++) { //선택한 등급을 제외한 수만큼 for 수행. i는 등급 위치
+            if(i != 1)
             {
                 if (tmpEle[i].checked == true) {
                     tmpEle[i].checked = false;
@@ -165,8 +156,7 @@ function No_chk(qNum) {
 function q2_1_click(){
     select2[0]=0;
     disappear("#q2");
-    location.replace("/list.html");
-    //goResult(true);
+    goResult(true);
 }
 
 function q2_2_click(){
@@ -297,6 +287,7 @@ function goResult(isq2){
     var height=select6[1]*0.01;
     var height_2=height*height;
     var bmi=select6[2]/height_2;
+    console.log(bmi);
     if(bmi>=30){
         //var result_bmi = document.createElement("p");
         //result_bmi.setAttribute("style", "text-align:center");
@@ -308,9 +299,8 @@ function goResult(isq2){
     else{
         USERINFO[6] = 0;
     }
-
-    var fairycloset=[1,2,3];
-    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2], fairy_bmi:1, fairy_name:"요정", fairy_closet:fairycloset}, function() {
+    console.log(USERINFO[6]);
+    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2]}, function() {
         /*console.log('Value is set to ' + user_name);
         console.log(pain);
         console.log(pre);
@@ -319,7 +309,8 @@ function goResult(isq2){
         console.log(height);
         console.log(weight);*/
         console.log("저장되었습니다~");
-      }); 
+    });
+
 
 }
 
@@ -356,6 +347,10 @@ function begin(){ //시작하기 버튼
 
 }
 
+
+
+document.getElementById("ok_btnR").addEventListener('click', compare);
+
 //select1 = ["ID"]
 //select2 = [1] //auto XX
 //select3 = [5] //hurt
@@ -364,44 +359,43 @@ function begin(){ //시작하기 버튼
 //select6 = ['INFJ',1] //mbti / bmi
 
 
-
-var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&list=PLPPetu1spkealPT-BShcUFyWM0it3n2ql&index=4", "hurt":5, "exercise":1, "tool":5, "MBTI":"tp","MBTI2":"fp", "BMI":1},
- {"id":2, "link":"https://www.youtube.com/watch?v=87uwSVdvPY8&t=909s", "hurt":5, "exercise":1, "tool":5, "MBTI":"tj","MBTI2":"", "BMI":1},
- {"id":3, "link":"https://www.youtube.com/watch?v=WKtEJon-85s", "hurt":5, "exercise":1, "tool":1, "MBTI":"fj","MBTI2":"fp", "BMI":1},
- {"id":4, "link":"https://www.youtube.com/watch?v=QA5jS0dPa6w", "hurt":5, "exercise":1, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":1},
- {"id":5, "link":"https://www.youtube.com/watch?v=x26mdeGnxyo", "hurt":5, "exercise":3, "tool":1, "MBTI":"fj","MBTI2":"tj", "BMI":1},
- {"id":6, "link":"https://www.youtube.com/watch?v=wCOgq8U2IOk", "hurt":5, "exercise":3, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":1},
- {"id":7, "link":"https://www.youtube.com/watch?v=NDsjmxTROEo", "hurt":5, "exercise":3, "tool":5, "MBTI":"fp","MBTI2":"", "BMI":1},
- {"id":8, "link":"https://www.youtube.com/watch?v=Bt1wr94FmGQ", "hurt":5, "exercise":3, "tool":5, "MBTI":"tp","MBTI2":"tj", "BMI":1},
- {"id":9, "link":"https://www.youtube.com/watch?v=8lvmFgsQt8U", "hurt":5, "exercise":2, "tool":5, "MBTI":"tj","MBTI2":"", "BMI":1},
- {"id":10, "link":"https://www.youtube.com/watch?v=hJuO1AUqLUc", "hurt":5, "exercise":2, "tool":5, "MBTI":"tp","MBTI2":"tj", "BMI":1},
- {"id":11, "link":"https://www.youtube.com/watch?v=DoQGWdX9l1Y", "hurt":5, "exercise":2, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":1},
- {"id":12, "link":"https://www.youtube.com/watch?v=W1ZUyg8Ju8w", "hurt":5, "exercise":2, "tool":1, "MBTI":"fj","MBTI2":"tj", "BMI":1},
- {"id":13, "link":"https://www.youtube.com/watch?v=6pr9nYOJW3o", "hurt":5, "exercise":5, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":1},
- {"id":14, "link":"https://www.youtube.com/watch?v=b0bz8En15YU", "hurt":5, "exercise":5, "tool":1, "MBTI":"fj","MBTI2":"fp", "BMI":1},
- {"id":15, "link":"https://www.youtube.com/watch?v=gMaB-fG4u4g", "hurt":5, "exercise":5, "tool":5, "MBTI":"fp","MBTI2":"", "BMI":1},
- {"id":16, "link":"https://www.youtube.com/watch?v=Wcdz6n18lR4&list=RDCMUCpg89Ys3E4BaLGgEEWVmI9g&start_radio=1&rv=Wcdz6n18lR4&t=12", "hurt":5, "exercise":5, "tool":5, "MBTI":"tp","MBTI2":"fp", "BMI":1},
- {"id":17, "link":"https://www.youtube.com/watch?v=54tTYO-vU2E", "hurt":5, "exercise":1, "tool":5, "MBTI":"fp","MBTI2":"", "BMI":0},
- {"id":18, "link":"https://www.youtube.com/watch?v=2swcod5RYvU", "hurt":5, "exercise":1, "tool":5, "MBTI":"tp","MBTI2":"fp", "BMI":0},
- {"id":19, "link":"https://www.youtube.com/watch?v=xoWKLNwNva0", "hurt":5, "exercise":1, "tool":1, "MBTI":"fj","MBTI2":"tj", "BMI":0},
- {"id":20, "link":"https://www.youtube.com/watch?v=hgqSlNH_NYo", "hurt":5, "exercise":1, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":0},
- {"id":21, "link":"https://www.youtube.com/watch?v=4qqBQ0Xs4nc", "hurt":5, "exercise":3, "tool":1, "MBTI":"fj","MBTI2":"fp", "BMI":0},
- {"id":22, "link":"https://www.youtube.com/watch?v=g5RfB0D61m8", "hurt":5, "exercise":3, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":0},
- {"id":23, "link":"https://www.youtube.com/watch?v=ieGVQp_eRFs", "hurt":5, "exercise":3, "tool":5, "MBTI":"tj","MBTI2":"", "BMI":0},
- {"id":24, "link":"https://www.youtube.com/watch?v=DWYDL-WxF1U", "hurt":5, "exercise":3, "tool":5, "MBTI":"tp","MBTI2":"fp", "BMI":0},
- {"id":25, "link":"https://www.youtube.com/watch?v=kETh8T3it4k", "hurt":5, "exercise":2, "tool":5, "MBTI":"tj","MBTI2":"", "BMI":0},
- {"id":26, "link":"https://www.youtube.com/watch?v=7TLk7pscICk", "hurt":5, "exercise":2, "tool":5, "MBTI":"tp","MBTI2":"fp", "BMI":0},
- {"id":27, "link":"https://www.youtube.com/watch?v=DoQGWdX9l1Y&t=10s", "hurt":5, "exercise":2, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":0},
- {"id":28, "link":"https://www.youtube.com/watch?v=W1ZUyg8Ju8w&t=339s", "hurt":5, "exercise":2, "tool":1, "MBTI":"fj","MBTI2":"tj", "BMI":0},
- {"id":29, "link":"https://www.youtube.com/watch?v=hJ4_prZ9kB4&t=515s", "hurt":5, "exercise":5, "tool":1, "MBTI":"fj","MBTI2":"tj", "BMI":0},
- {"id":30, "link":"https://www.youtube.com/watch?v=lkSweEq292o", "hurt":5, "exercise":5, "tool":1, "MBTI":"fj","MBTI2":"tp", "BMI":0},
- {"id":31, "link":"https://www.youtube.com/watch?v=zSJYAyoojdw", "hurt":5, "exercise":5, "tool":5, "MBTI":"tp","MBTI2":"tj", "BMI":0},
- {"id":32, "link":"https://www.youtube.com/watch?v=s14NQ6Cz4QE", "hurt":5, "exercise":5, "tool":5, "MBTI":"","MBTI2":"fp", "BMI":0}
+var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&list=PLPPetu1spkealPT-BShcUFyWM0it3n2ql&index=4", "hurt":5, "exercise":0, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":1},
+ {"id":2, "link":"https://www.youtube.com/watch?v=87uwSVdvPY8&t=909s", "hurt":5, "exercise":0, "tool":1, "MBTI":"tj","MBTI2":"", "BMI":1},
+ {"id":3, "link":"https://www.youtube.com/watch?v=WKtEJon-85s", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"fp", "BMI":1},
+ {"id":4, "link":"https://www.youtube.com/watch?v=QA5jS0dPa6w", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":1},
+ {"id":5, "link":"https://www.youtube.com/watch?v=x26mdeGnxyo", "hurt":5, "exercise":2, "tool":0, "MBTI":"fj","MBTI2":"tj", "BMI":1},
+ {"id":6, "link":"https://www.youtube.com/watch?v=wCOgq8U2IOk", "hurt":5, "exercise":2, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":1},
+ {"id":7, "link":"https://www.youtube.com/watch?v=NDsjmxTROEo", "hurt":5, "exercise":2, "tool":1, "MBTI":"fp","MBTI2":"", "BMI":1},
+ {"id":8, "link":"https://www.youtube.com/watch?v=Bt1wr94FmGQ", "hurt":5, "exercise":2, "tool":1, "MBTI":"tp","MBTI2":"tj", "BMI":1},
+ {"id":9, "link":"https://www.youtube.com/watch?v=8lvmFgsQt8U", "hurt":5, "exercise":1, "tool":1, "MBTI":"tj","MBTI2":"", "BMI":1},
+ {"id":10, "link":"https://www.youtube.com/watch?v=hJuO1AUqLUc", "hurt":5, "exercise":1, "tool":1, "MBTI":"tp","MBTI2":"tj", "BMI":1},
+ {"id":11, "link":"https://www.youtube.com/watch?v=DoQGWdX9l1Y", "hurt":5, "exercise":1, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":1},
+ {"id":12, "link":"https://www.youtube.com/watch?v=W1ZUyg8Ju8w", "hurt":5, "exercise":1, "tool":0, "MBTI":"fj","MBTI2":"tj", "BMI":1},
+ {"id":13, "link":"https://www.youtube.com/watch?v=6pr9nYOJW3o", "hurt":5, "exercise":3, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":1},
+ {"id":14, "link":"https://www.youtube.com/watch?v=b0bz8En15YU", "hurt":5, "exercise":3, "tool":0, "MBTI":"fj","MBTI2":"fp", "BMI":1},
+ {"id":15, "link":"https://www.youtube.com/watch?v=gMaB-fG4u4g", "hurt":5, "exercise":3, "tool":1, "MBTI":"fp","MBTI2":"", "BMI":1},
+ {"id":16, "link":"https://www.youtube.com/watch?v=Wcdz6n18lR4&list=RDCMUCpg89Ys3E4BaLGgEEWVmI9g&start_radio=1&rv=Wcdz6n18lR4&t=12", "hurt":5, "exercise":3, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":1},
+ {"id":17, "link":"https://www.youtube.com/watch?v=54tTYO-vU2E", "hurt":5, "exercise":0, "tool":1, "MBTI":"fp","MBTI2":"", "BMI":0},
+ {"id":18, "link":"https://www.youtube.com/watch?v=2swcod5RYvU", "hurt":5, "exercise":0, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":0},
+ {"id":19, "link":"https://www.youtube.com/watch?v=xoWKLNwNva0", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"tj", "BMI":0},
+ {"id":20, "link":"https://www.youtube.com/watch?v=hgqSlNH_NYo", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":0},
+ {"id":21, "link":"https://www.youtube.com/watch?v=4qqBQ0Xs4nc", "hurt":5, "exercise":2, "tool":0, "MBTI":"fj","MBTI2":"fp", "BMI":0},
+ {"id":22, "link":"https://www.youtube.com/watch?v=g5RfB0D61m8", "hurt":5, "exercise":2, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":0},
+ {"id":23, "link":"https://www.youtube.com/watch?v=ieGVQp_eRFs", "hurt":5, "exercise":2, "tool":1, "MBTI":"tj","MBTI2":"", "BMI":0},
+ {"id":24, "link":"https://www.youtube.com/watch?v=DWYDL-WxF1U", "hurt":5, "exercise":2, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":0},
+ {"id":25, "link":"https://www.youtube.com/watch?v=kETh8T3it4k", "hurt":5, "exercise":1, "tool":1, "MBTI":"tj","MBTI2":"", "BMI":0},
+ {"id":26, "link":"https://www.youtube.com/watch?v=7TLk7pscICk", "hurt":5, "exercise":1, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":0},
+ {"id":27, "link":"https://www.youtube.com/watch?v=DoQGWdX9l1Y&t=10s", "hurt":5, "exercise":1, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":0},
+ {"id":28, "link":"https://www.youtube.com/watch?v=W1ZUyg8Ju8w&t=339s", "hurt":5, "exercise":1, "tool":0, "MBTI":"fj","MBTI2":"tj", "BMI":0},
+ {"id":29, "link":"https://www.youtube.com/watch?v=hJ4_prZ9kB4&t=515s", "hurt":5, "exercise":3, "tool":0, "MBTI":"fj","MBTI2":"tj", "BMI":0},
+ {"id":30, "link":"https://www.youtube.com/watch?v=lkSweEq292o", "hurt":5, "exercise":3, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":0},
+ {"id":31, "link":"https://www.youtube.com/watch?v=zSJYAyoojdw", "hurt":5, "exercise":3, "tool":1, "MBTI":"tp","MBTI2":"tj", "BMI":0},
+ {"id":32, "link":"https://www.youtube.com/watch?v=s14NQ6Cz4QE", "hurt":5, "exercise":3, "tool":1, "MBTI":"","MBTI2":"fp", "BMI":0}
 ]
 
 
 
-
+var exerciseArea = document.querySelector('.exerciseList'); 
 
 function autoservice(){
     alert(select2[0]);
@@ -417,97 +411,94 @@ function compare(){
         autoservice();
     }
     for(var i = 0 ; i < 32 ;i++){ //추후 32 >> exercise 길이만큼 받자
-        var point = 100;
+        var point = 10;
     
         //아픈부위 (상체/코어/하체) >> 이외는 모두 제거
-        if(USERINFO[2] == 5){
-            point*=1
+        if(USERINFO[2] == 3){
+            point+=10
         }//아픈부위가 없다면 전 영상
         else if(USERINFO[2] != exercise[i]['hurt']){
-            point*=(3/4)
+            point+=7
         }//아픈부위관련없는 운동이면 (하체가 아픔 >> 상체운동)
         else{
-            point*=(1/4)
+            point+=0
         }//관련 운동이면
             
-
+        
         //운동부위 (상체/코어/하체) >> 이외는 모두 제거 
-        if(USERINFO[3] == 5){        
-            point*=1
+        if(USERINFO[3] == 3){        
+            point+=10
         }//선호하는 운동부위가 없다면 전 영상
-        else if(exercise[i]['exercise'] == 5){
-            point*=(3/4)
+        else if(exercise[i]['exercise'] == 3){
+            point+=7
         }//선호하는 부위가 있을 때 전신운동
         else if(USERINFO[3] == exercise[i]['exercise']){
-            point*=1
+            point+=10
         }//해당 부위관련 운동
         else{
-            point*=(1/4)
+            point+=5
         }//다른 부위관련운동
         
 
         //운동기구 (덤벨) >> 이외는 모두 제거
-        if(USERINFO[4] == 5){
+        if(USERINFO[4] == 1){
             if(exercise[i]['tool'] == 5){
-                point*=1
+                point+=10
             }
         }//덤벨 없다면 기구없이 하는 영상 
         else if(USERINFO[4] == exercise[i]['tool']){
-            point*=1
+            point+=10
         }//덤벨이 있을 때 기구사용 운동
         else{
-            point*=(1/2)
+            point+=7
         }//기구 미사용 운동
     
 
         //MBTI
-        if(USERINFO[5][2] == exercise[i]['MBTI'][2] && USERINFO[5][3] == exercise[i]['MBTI'][3]){
-            point*=1
+        if(USERINFO[5][2] == exercise[i]['MBTI'][0] && USERINFO[5][3] == exercise[i]['MBTI'][1]){
+            point*=1.5
+        }//뒤 두자리가 같을 때 (성격과 맞는 운동일 때)
+        else if(USERINFO[5][2] == exercise[i]['MBTI2'][0] && USERINFO[5][3] == exercise[i]['MBTI2'][1]){
+            point*=1.5
         }//뒤 두자리가 같을 때 (성격과 맞는 운동일 때)
         else{
-            point*=(1/4)
+            point*=0.6
         }
-
-        if(USERINFO[5][2] == exercise[i]['MBTI2'][2] && USERINFO[5][3] == exercise[i]['MBTI2'][3]){
-            point*=1
-        }//뒤 두자리가 같을 때 (성격과 맞는 운동일 때)
-        else{
-            point*=(1/4)
-        }
-        
 
         //BMI
         if(USERINFO[6] == 0){
-            point*=1
+            if(exercise[i]['BMI'] == 1){
+                point*=0.8
+            }
         }//유저가 비만이 아닐 때 전 운동
         else if(USERINFO[6] == exercise[i]['BMI']){
-            point*=(1/2)
+            point*=1.2
         }//비만일 때 다이어트 관련 운동
         else{
-            point*=(1/4)
+            point*=0.6
         }//다이어트 관련없는 운동
     
         point_list.push(point);
+        exercise[i]['point'] = point;
     }
 
     console.log(point_list)
+   
+    exercise.sort(function(a,b){
+        return b.point - a.point;
+    });
+    console.log(exercise)
 
-    var maxpoint = 0;
-    for(var i=0; i< point_list.length ; i++){
-        if(point_list[i] >= maxpoint){
-            maxpoint = point_list[i];
-        }
+    var exerciseArea = document.querySelector('.exerciseList');
+    var elem = ""
+    console.log("Recommend for "+ USERINFO[0] + " is")
+    for(var i = 0; i<exercise.length ; i++){
+        console.log(exercise[i]['link']);
+        exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>" + exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc + "</a> <br>";
+        if(exercise[i]['point'] != exercise[i+1]['point']){
+            break;
+        }      
     }
-    
-    var max_index_list = [];
-    for(i=0; i< point_list.length ; i++){
-        if(point_list[i] == maxpoint){
-            max_index_list.push(i)
-        }
-    }
-    
-    console.log("Recommend for "+ select1[0] + " is")
-    for(var i = 0; i<max_index_list.length ; i++){
-        console.log(exercise[max_index_list[i]]['link'])
-    }
+
+
 }

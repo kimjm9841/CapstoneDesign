@@ -15,34 +15,26 @@ const qnaList=[
     {
         q: 'Q3. 요즘 어디 아프신 곳이 있나요?',
         a: [
-                {answer: '어깨/목', type: [1]},
-                {answer: '손목', type: [2]},
-                {answer: '허리', type: [3]},
-                {answer: '다리', type: [4]},
-                {answer: '발', type: [5]},
-                {answer: '없어!', type: [6]}
+                {answer: '상체', type: [0]},
+                {answer: '코어', type: [1]},
+                {answer: '하체', type: [2]},
+                {answer: '없어!', type: [3]}
         ]
     },
     {
         q: 'Q4. 선호하시는 운동 부위가 있나요?',
         a: [
-                {answer: '어깨/목', type: [1]},
-                {answer: '손목', type: [2]},
-                {answer: '허리', type: [3]},
-                {answer: '다리', type: [4]},
-                {answer: '발', type: [5]},
-                {answer: '없어!', type: [6]}
+                {answer: '상체', type: [0]},
+                {answer: '코어', type: [1]},
+                {answer: '하체', type: [2]},
+                {answer: '없어!', type: [3]}
         ]
     },
     {
         q: 'Q5. 주변에 가지고 있는 운동 도구가 있나요?',
         a: [
-                {answer: '폼롤러', type: [1]},
-                {answer: '마사지볼', type: [2]},
-                {answer: '덤벨', type: [3]},
-                {answer: '수건', type: [4]},
-                {answer: '밴드', type: [5]},
-                {answer: '없어!', type: [6]}
+                {answer: '덤벨', type: [0]},
+                {answer: '없어!', type: [1]}
         ]
     },
     {
@@ -98,5 +90,46 @@ const mbti_result=[
     {
         mbit: 'TJ',
         desc: '님의 mbti는 TJ형에 해당됩니다. [계획적인, 집중하는] 운동을 위주로 추천됩니다.'
+    }
+]
+
+const exer_where=[
+    {
+        where: 'UP',
+        desc: '상체 '
+    },
+    {
+        where: 'MID',
+        desc: '코어 '
+    },
+    {
+        where: 'DOWN',
+        desc: '하체 '
+    },
+    {
+        where: 'ANY',
+        desc: '전신 '
+    }
+]
+
+const exer_fat=[   
+    {
+        fat: 'normal',
+        desc: '운동'
+    },
+    {
+        fat: 'fat',
+        desc: '다이어트 운동'
+    }
+]
+
+const exer_tool=[
+    {
+        tool: 'dumbel',
+        desc: '덤벨 '
+    },
+    {
+        tool: 'none',
+        desc: '맨몸 '
     }
 ]
