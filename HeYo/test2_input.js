@@ -156,7 +156,8 @@ function No_chk2(qNum) {
 function q2_1_click(){
     select2[0]=0;
     disappear("#q2");
-    goResult(true);
+    location.replace("/list.html");
+    //goResult(true);
 }
 
 function q2_2_click(){
@@ -311,6 +312,8 @@ function goResult(isq2){
         console.log("저장되었습니다~");
     });
 
+    //테스트
+    compare();
 
 }
 
@@ -333,6 +336,11 @@ function goNext(qIdx){
 
 function begin(){ //시작하기 버튼
     //algo("시작"); //이렇게 호출하면 test2_back.js에서 함수 가져올 수 있어요!
+    var fairycloset=[1,2,3];
+    chrome.storage.sync.set({fairy_bmi:1, fairy_name:"요정", fairy_closet:fairycloset}, function() {
+        console.log("요정정보 초기화");
+      }); 
+
     main.style.WebkitAnimation = "fadeOut 1s";
     main.style.WebkitAnimation = "fadeOut 1s";
     setTimeout(()=>{
@@ -349,8 +357,54 @@ function begin(){ //시작하기 버튼
 
 
 
-document.getElementById("ok_btnR").addEventListener('click', compare);
+//document.getElementById("ok_btnR").addEventListener('click', compare);
+document.getElementById("ok_btnR").addEventListener('click', function(){
+    let isChecked = false;
+    let checkArr = document.getElementsByName("rec[]");
+    let exList = new Array();
+    let ex_id = new Array();
+    for(var i=0;i<checkArr.length;i++){
+        if(checkArr[i].checked == true) {
+            ex_id.push(checkArr[i].id);
+            //let textArr = document.getElementById(ex_id);
+        //console.log(ex_id, exer_where[exercise[ex_id]['exercise']].desc+exer_tool[exercise[ex_id]['tool']].desc+exer_fat[exercise[ex_id]['BMI']].desc, exercise[ex_id]['link']);
+            //exList.push({"id":i, "name":textArr.name, "date":[true, false, true, false, true, false, false], "link":exercise[ex_id].link});
+            //select3[count++]=i;
+        }
+    }
+    console.log('선택된 id', ex_id);
+    let count=0;
+    for(let j=0; j<ex_id.length; j++){
+        for(let i=0; i<exercise.length; i++){
+            if(exercise[i]['id']==ex_id[j]) exList.push({"name":exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc, "link":exercise[i]['link']});
+        }
+    }
+    console.log("!확인!");
+    console.log(exList);
 
+    if (confirm("추천 운동을 등록하시겠습니까?") == true){    //확인
+        chrome.storage.sync.set({exList}, function() {
+            console.log('Value is set to ', exList);
+            console.log("저장되었습니다~");
+        });
+        location.replace("/list.html"); //운동목록 페이지로 이동
+    }else{   //취소
+        console.log("등록 안함.");
+    }
+
+    /* confirm 저거 안되면 다시 살릴용도..
+        chrome.storage.sync.set({exList}, function() {
+        console.log('Value is set to ', exList);
+        console.log("저장되었습니다~");
+    });
+    */
+});
+/*
+                "name": {"type": "string"},
+                "time": {"type": "string"},
+                "date": {"type": "array"},
+                "link": {"type": "string"}
+*/
 //select1 = ["ID"]
 //select2 = [1] //auto XX
 //select3 = [5] //hurt
@@ -494,8 +548,12 @@ function compare(){
     var img_url2 = '/2.jpg';
     
     var img_list = [];
+    var vidurl;
+    var r, rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
     for(var i = 0; i < exercise.length ; i++){
-        img_list[i] = exercise[i]['link'].substring(32);
+        vidurl = exercise[i]['link'];
+        r = vidurl.match(rx);
+        img_list[i] = r[1];
     }
 
     console.log(img_list);
@@ -505,16 +563,79 @@ function compare(){
     var elem = ""
     console.log("Recommend for "+ USERINFO[0] + " is")
     for(var i = 0; i<exercise.length ; i++){
-        console.log(exercise[i]['link']);
-        exerciseArea.innerHTML += "<img src='" + img_url1 + img_list[i] + img_url2 +"' width='200'>";
-        exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>" 
-        + exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc
-        + "</a> <br>";
+        console.log(i, exercise[i]['id'], exercise[i]['link'], exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc);
+        setRecList(i+1, exercise[i]['id'], exercise[i]['link'], img_list[i],
+         exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc);
+        
+         //exerciseArea.innerHTML += "<img src='" + img_url1 + img_list[i] + img_url2 +"' width='200'>";
+        //exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>" 
+        //+ exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc
+        //+ "</a> <br>";
         
         if(exercise[i]['point'] != exercise[i+1]['point']){
             break;
         }      
     }
-
-
 }
+
+function setRecList(idx ,id, link, imgId, ex_title){
+    console.log("link의 id", id);
+    var recArea = document.querySelector('.resultRec');
+    var recEntry = document.createElement("input");
+    recEntry.setAttribute('type', 'checkbox');
+    recEntry.setAttribute('id', id);
+    recEntry.setAttribute('name', "rec[]");
+    //recEntry.setAttribute('class', 'btn-check');
+    recEntry.classList.add('btn-check');
+    recEntry.setAttribute('autocomplete', 'off');
+
+    var recLabel = document.createElement("label");
+    recLabel.setAttribute('class', 'btn btn-outline-primary');
+    recLabel.setAttribute('for', id);
+    recLabel.innerHTML = "추천"+idx;         
+
+    var buf = document.createElement("label");
+    buf.innerHTML='&nbsp;&nbsp;';
+    var buf1 = document.createElement("label");
+    buf1.innerHTML='&nbsp;&nbsp;&nbsp;&nbsp;';
+    var buf2 = document.createElement("p");
+    buf2.innerHTML='<br>';
+    var buf3 = document.createElement("label");
+    buf3.innerHTML='&nbsp;&nbsp;&nbsp;&nbsp;';
+
+    var recImg = document.createElement("img");
+    recImg.setAttribute('src', 'https://img.youtube.com/vi/'+imgId+'/2.jpg');//'/mqdefault.jpg');
+    recImg.setAttribute('alt', '썸네일');
+    recImg.setAttribute('width', '180');
+    recImg.setAttribute('style', 'vertical-align:top;');
+
+    var recTitle = document.createElement("textarea");
+    //recTitle.setAttribute('class', 'mx-auto my-auto');
+    //recTitle.setAttribute('cols', '135');
+    recTitle.setAttribute('style', 'width: 60%; height: 78px; border: 0px; resize: none;')
+    recTitle.setAttribute('disabled', '');
+    recTitle.setAttribute('id', id);
+    recTitle.setAttribute('name', ex_title);
+    fetch(`https://noembed.com/embed?dataType=json&url=${link}`)
+    .then(res => res.json())
+    .then(data => recTitle.innerHTML='['+ex_title+']\n'+data.title)
+
+    var recPlay = document.createElement("a");
+    recPlay.setAttribute('href', link);
+    recPlay.setAttribute('target', '_blank');
+    recPlay.innerHTML = '<img src="/images/next.png" width="16" alt="링크연결">';
+
+    var buf_hr = document.createElement("hr");
+    recArea.appendChild(buf2);
+    recArea.appendChild(recEntry);
+    recArea.appendChild(recLabel); 
+    recArea.appendChild(buf);
+    recArea.appendChild(recImg);
+    recArea.appendChild(buf1);
+    recArea.appendChild(recTitle);
+    recArea.appendChild(buf3);
+    recArea.appendChild(recPlay);
+    recArea.appendChild(buf_hr);
+}
+
+//      <a href="options.html" target="_blank"><img src="/images/gear-option.png" width="16" alt="설정"></a>
