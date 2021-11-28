@@ -30,8 +30,25 @@ window.onload=function(){
                     ex_date[i]=document.getElementById(i).checked;
                 }
                 console.log(ex_date);
-                var inputArea = document.querySelector(".input");
-                inputArea.innerHTML=ex_name+" "+ex_time+" "+ex_link+" "+ex_date;
+
+                let ex_date_checked=false;
+                for(let i=0;i<7;i++){
+                    if(ex_date[i]==true){
+                        ex_date_checked=true;
+                        break;
+                    }
+                }
+                if(isValidHttpUrl(ex_link)==false) {
+                    window.alert("url 링크 형식을 맞춰주세요.");
+                    return;
+                }
+                if(ex_name.length==0||ex_time.length==0||ex_link.length==0||ex_date_checked==false){
+                    window.alert("빈칸을 모두 채워주세요.");
+                    return;
+                }
+
+                //var inputArea = document.querySelector(".input");
+                //inputArea.innerHTML=ex_name+" "+ex_time+" "+ex_link+" "+ex_date;
                     //window.alert(ex_name, ex_time, ex_link);
                     //window.close();
                     //ex_id=getExId();
@@ -44,6 +61,7 @@ window.onload=function(){
                 });
                 window.alert("운동 목록이 추가되었습니다.");
                 window.close();
+    
             });
 
         }
@@ -76,13 +94,30 @@ window.onload=function(){
                     ex_date[i]=document.getElementById(i).checked;
                 }
                 console.log(ex_date);
-                var inputArea = document.querySelector(".input");
-                inputArea.innerHTML=ex_name+" "+ex_time+" "+ex_link+" "+ex_date;
+                //var inputArea = document.querySelector(".input");
+                //inputArea.innerHTML=ex_name+" "+ex_time+" "+ex_link+" "+ex_date;
                     //window.alert(ex_name, ex_time, ex_link);
                     //window.close();
                     //ex_id=getExId();
                 console.log("저장 직전 id", ex_id);
                 //exList.push({"id":ex_id,"name":ex_name, "time":ex_time, "date":ex_date, "link":ex_link});
+
+                let ex_date_checked=false;
+                for(let i=0;i<7;i++){
+                    if(ex_date[i]==true){
+                        ex_date_checked=true;
+                        break;
+                    }
+                }
+                if(isValidHttpUrl(ex_link)==false) {
+                    window.alert("url 링크 형식을 맞춰주세요.");
+                    return;
+                }
+                if(ex_name.length==0||ex_time.length==0||ex_link.length==0||ex_date_checked==false){
+                    window.alert("빈칸을 모두 채워주세요.");
+                    return;
+                }
+
                 exList[lastData2].id = ex_id;
                 exList[lastData2].name = ex_name;
                 exList[lastData2].time = ex_time;
@@ -94,13 +129,24 @@ window.onload=function(){
                 });
                 window.alert("운동 목록이 수정되었습니다.");
                 window.close();
+
             });
         }
     }
 }
     
 
-
+function isValidHttpUrl(string) {
+    let url;
+    
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;  
+    }
+  
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
 
 
 //chrome.storage.sync.set({name:ex_name, time:ex_time, date:ex_date, link:ex_link});
