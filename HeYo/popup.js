@@ -22,6 +22,7 @@ window.onload=function(){
         document.getElementById('fairyname').value=result.fairy_name;
         let body_value = result.fairy_bmi;
         let currentclothes = result.fairy_current_clothes;
+        console.log(currentclothes);
         //let fairyclothes = result.fairy_closet;
         let alarm = result.alarm;
         if(result.fairy_name==null){setDefault();}
@@ -42,11 +43,11 @@ function setInfo(fairy_name, body_value, fairy_current_clothes, alarm){
   }
 
   var src=null;
-  if(fairy_current_clothes==null){src="/images/fairy_lv"+body_level+".png";}
+  if(fairy_current_clothes==null){src="/images/fairy_lv"+body_level+"_0.png";}
   else{src="/images/fairy_lv"+body_level+"_"+fairy_current_clothes+".png";}
   //if(fairyLevel==1){src="/images/fairy_lv"+body_level+"_"+fairy_current_clothes+".png";}
   //else{src="/images/fairy_lv"+fairyLevel+".png";}
-
+  console.log(src);
   document.getElementById('fairyname').value=fairy_name;
   var ImgArea = document.getElementById('fairy');
   var img = document.createElement('img');

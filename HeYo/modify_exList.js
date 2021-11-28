@@ -1,376 +1,95 @@
 //import {algo} from './test2_back.js'; //import하고 아래에서 사용하면 됩니다!
 //혹시 test2_back.js가 아니고 다른 파일에서 구현중이었으면 여기에 './(이 부분 수정).js'하시고
 //test2_input.html에서 <script src="./test2_back.js" type="module"></script> 여기서 "./(이 부분 수정).js"하시면 될 것 같습니다!
-
-document.getElementById("startButton").addEventListener("click", begin);
-
-const main=document.querySelector("#main");
-const qna=document.querySelector("#qna");
-const result=document.querySelector("#result");
-
-
-
-const endPoint=7;
-const question = new Array("q1", "q2", "q3", "q4", "q5", "q6");
-
-const select1 = [];
-const select2 = [];
-const select3 = [];
-const select4 = [];
-const select5 = [];
-const select6 = [];
-
 const USERINFO = [];
+var exList = [];
 
-let qIdx = 0;
+var height;
+var weight;
+var mbti;
+var pre;
+var equi;
+var pain;
 
-document.getElementById("ok_btn1").addEventListener('click', clicked);
-document.getElementById("q2_1").addEventListener('click', q2_1_click);
-document.getElementById("q2_2").addEventListener('click', q2_2_click);
-document.getElementById("ok_btn3").addEventListener('click', clicked);
-document.getElementById("ok_btn4").addEventListener('click', clicked);
-document.getElementById("ok_btn5").addEventListener('click', clicked);
-document.getElementById("ok_btn6").addEventListener('click', clicked);
-document.getElementById("q3_6").addEventListener('click', function(){No_chk("q3[]");});
-document.getElementById("q4_6").addEventListener('click', function(){No_chk("q4[]");});
-document.getElementById("q5_6").addEventListener('click', function(){No_chk2("q5[]");});
+window.onload=function(){
 
-document.getElementById("q3_1").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
-document.getElementById("q3_2").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
-document.getElementById("q3_3").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q3[]");
-    if(tmpEle[3].checked==true){No_chk("q3[]");}}, false);
+    height = localStorage.getItem('height');
+    weight = localStorage.getItem('weight');
+    mbti = localStorage.getItem('mbti');
+    var pre_tmp = localStorage.getItem('pre');
+    var equi_tmp = localStorage.getItem('equi');
+    var pain_tmp = localStorage.getItem('pain');
+    console.log(height, weight, mbti, pre, equi, pain_tmp, typeof(pain_tmp));
+    
+    pre = pre_tmp.split(',');
+    equi = equi_tmp.split(',');
+    pain = pain_tmp.split(',');
+    console.log(pre, equi, pain, typeof(pre[0]));
 
-document.getElementById("q4_1").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
-document.getElementById("q4_2").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q4[]");
-    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
-document.getElementById("q4_3").addEventListener('click',function(){
-    var tmpEle = document.getElementsByName("q4[]"); 
-    if(tmpEle[3].checked==true){No_chk("q4[]");}}, false);
-
-document.getElementById("q5_1").addEventListener('click',function(){ 
-    var tmpEle = document.getElementsByName("q5[]");
-    if(tmpEle[1].checked==true){No_chk2("q5[]");}}, false);
-
-function clicked(){ 
-    var children;
-    switch(qIdx){
-        case 0:
-            /*children=document.querySelectorAll('#q1');*/
-            var tf = isValid_T("q1[]");
-            if(tf==true){
-                select1[0] = document.getElementById("name").value;
-                disappear("#q1");
-            }
-            break;
-
-        case 2:
-            /*isValid();*/
-            var tf = isValid("q3[]");
-            if(tf==true){
-                var arr = document.getElementsByName("q3[]");
-                var count=0;
-                for(var i=0;i<arr.length;i++){
-                    if(arr[i].checked == true) {
-                        select3[count++]=i;
-                    }
-                }
-                disappear("#q3");
-            }
-            break;
-
-        case 3:
-            var tf = isValid("q4[]");
-            if(tf==true){
-                var arr = document.getElementsByName("q4[]");
-                var count=0;
-                for(var i=0;i<arr.length;i++){
-                    if(arr[i].checked == true) {
-                        select4[count++]=i;
-                    }
-                }
-                disappear("#q4");
-            }
-            break;
-
-        case 4:
-            var tf = isValid("q5[]");
-            if(tf==true){
-                var arr = document.getElementsByName("q5[]");
-                var count=0;
-                for(var i=0;i<arr.length;i++){
-                    if(arr[i].checked == true) {
-                        select5[count++]=i;
-                    }
-                }
-                disappear("#q5");
-            }
-            break;
-        
-        case 5:
-            var tf = isValid_T("q6[]");
-            var tf_info = checkInfo("q6[]");
-            if(tf==true && tf_info){
-                var arr = document.getElementsByName("q6[]");
-                for(var i=0;i<arr.length;i++){
-                    select6[i]=arr[i].value;
-                }
-                disappear("#q6");
-            }
-            break;     
+    for(let i=0; i<pre.length; i++){
+        pre[i]=parseInt(pre[i]);
     }
-}
-function No_chk(qNum) {	
-    var tmpEle = document.getElementsByName(qNum) // name 이 Job 인 객체만 추출
-    console.log("뭐지", tmpEle);
-    if (tmpEle[3].checked == true) { //'없어'가 체크가 되면
-        for (var i = 0; i < tmpEle.length; i++) { //선택한 등급을 제외한 수만큼 for 수행. i는 등급 위치
-            if(i != 3)
-            {
-                if (tmpEle[i].checked == true) {
-                    tmpEle[i].checked = false;
-                }		
-            }
-        }
+    for(let i=0; i<pain.length; i++){
+        pain[i]=parseInt(pain[i]);
     }
-}
-function No_chk2(qNum) {	
-    var tmpEle = document.getElementsByName(qNum) // name 이 Job 인 객체만 추출
-    if (tmpEle[1].checked == true) { //'없어'가 체크가 되면
-        for (var i = 0; i < tmpEle.length; i++) { //선택한 등급을 제외한 수만큼 for 수행. i는 등급 위치
-            if(i != 1)
-            {
-                if (tmpEle[i].checked == true) {
-                    tmpEle[i].checked = false;
-                }		
-            }
-        }
+    for(let i=0; i<equi.length; i++){
+        equi[i]=parseInt(equi[i]);
     }
-}
-function q2_1_click(){
-    select2[0]=0;
-    disappear("#q2");
-    location.replace("/list.html");
-    //goResult(true);
-}
+    console.log(pre[0], typeof(pre[0]));
 
-function q2_2_click(){
-    select2[0]=1;
-    disappear("#q2");
-}
-
-function checkInfo(qNum){
-    //세상에서 가장 큰 사람 기준으로 (기네스북) : 272cm니까 280cm까지로 하자.
-    //세상에서 가장 작은 사람 기준으로 (기네스북) : 60cm니까 60cm로 하자.
-    var arr = document.getElementsByName(qNum);
-    var isChecked = true;
-
-    for(var i=1;i<arr.length;i++){
-        if(isNaN(arr[i].value)) {
-            console.log(i);
-            console.log(isNaN(arr[i]));
-            alert("숫자 형태로 입력해주세요.")
-            return false;
-        }
-    }
-    /*for(var i=0;i<arr.length;i++)
-        console.log(arr[i].value);*/
-
-    var height=Number(arr[1].value);
-    var weight=Number(arr[2].value);
-
-    if(height>=60 && height<=280) isChecked=true;
-    else {
-        alert("알맞은 키를 입력해주세요(60~280cm)");
-        return false;
-    }
-
-    if(weight>0 && weight<=600) isChecked=true;
-    else {
-        alert("알맞은 몸무게를 입력해주세요(0~600kg)");
-        return false;
-    }
-
-    return true;
-}
-function isValid(qNum){
-    var isChecked = false;
-    var arr = document.getElementsByName(qNum);
-    for(var i=0;i<arr.length;i++){
-        if(arr[i].checked == true) {
-            isChecked = true;
-            break;
-        }
-    }
-    if(!isChecked){
-        alert("한 개 이상 선택해주세요.");
-        return false;
-    }
-    return true;
-}
-function isValid_T(qNum){
-    var isChecked = true;
-    var arr = document.getElementsByName(qNum);
-    for(var i=0;i<arr.length;i++){
-        if(arr[i].value == "") {
-            console.log("textarea 비어있음");
-            isChecked = false;
-            break;
-        }
-    }
-    if(!isChecked){
-        alert("빈칸을 모두 채워주세요.");
-        return false;
-    }
-    return true;
-}
-function disappear(qName){
-    var children=document.querySelectorAll(qName);
-    for(let i=0; i<children.length; i++){
-        children[i].disabled=true;
-        children[i].style.WebkitAnimation = "fadeOut 0.5s";
-        children[i].style.WebkitAnimation = "fadeOut 0.5s";
-    }
-    setTimeout(()=>{
-        for(let i=0; i<children.length; i++){
-            children[i].style.display='none';
-        }
-        goNext(++qIdx);
-    }, 450)
-}
-
-function goResult(isq2){
-    qna.style.WebkitAnimation = "fadeOut 1s";
-    qna.style.WebkitAnimation = "fadeOut 1s";
-    setTimeout(()=>{
-        result.style.WebkitAnimation = "fadeIn 1s";
-        result.style.WebkitAnimation = "fadeIn 1s";
-        setTimeout(()=>{
-            qna.style.display = "none";
-            result.style.display = "block";
-        }, 450)
-    }, 450)
-    USERINFO[0] = select1[0];
-    USERINFO[1] = select2[0];
-    USERINFO[2] = select3[0];
-    USERINFO[3] = select4[0];
-    USERINFO[4] = select5[0];
-    USERINFO[5] = select6[0];
-    console.log(select1);
-    console.log(select2);
-    console.log(select3);
-    console.log(select4);
-    console.log(select5);
-    console.log(select6);
+    USERINFO[0] = "user_name";
+    USERINFO[1] = 1;
+    USERINFO[2] = pain[0];
+    USERINFO[3] = pre[0];
+    USERINFO[4] = equi[0];
+    USERINFO[5] = mbti[0];
 
     var resultArea = document.querySelector('.resultDesc'); 
     var result_title;
     var result_desc = document.createElement("p");
     var mbti_id=0;
     var bmi_id=0;
-    if(select6[0]=='isfp' || select6[0]=='infp' || select6[0]=='esfp' || select6[0]=='enfp') mbti_id=0;
-    else if(select6[0]=='isfj' || select6[0]=='infj' || select6[0]=='esfj' || select6[0]=='enfj') mbti_id=1;
-    else if(select6[0]=='istp' || select6[0]=='intp' || select6[0]=='estp' || select6[0]=='entp') mbti_id=2;
-    else if(select6[0]=='istj' || select6[0]=='intj' || select6[0]=='estj' || select6[0]=='entj') mbti_id=3;
+    if(mbti[0]=='isfp' || mbti[0]=='infp' || mbti[0]=='esfp' || mbti[0]=='enfp') mbti_id=0;
+    else if(mbti[0]=='isfj' || mbti[0]=='infj' || mbti[0]=='esfj' || mbti[0]=='enfj') mbti_id=1;
+    else if(mbti[0]=='istp' || mbti[0]=='intp' || mbti[0]=='estp' || mbti[0]=='entp') mbti_id=2;
+    else if(mbti[0]=='istj' || mbti[0]=='intj' || mbti[0]=='estj' || mbti[0]=='entj') mbti_id=3;
     console.log(mbti_result[mbti_id]);
 
-    //result_desc.setAttribute("style", "text-align:center");
-    //result_desc.innerHTML = select1+mbti_result[mbti_id].desc;
-    resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;';
-    //resultArea.appendChild(result_desc);
+    chrome.storage.sync.get("exList", function(result) {
+        let exList = result.exList
+        setInfo(exList);
+        console.log('Value currently is ', exList);
+    });
 
-    var height=select6[1]*0.01;
+    resultArea.innerHTML= mbti_result[mbti_id].desc+'&nbsp;';
+
+    var height=height*0.01;
     var height_2=height*height;
-    var bmi=select6[2]/height_2;
+    var bmi=weight/height_2;
     console.log(bmi);
     if(bmi>=30){
-        //var result_bmi = document.createElement("p");
-        //result_bmi.setAttribute("style", "text-align:center");
-        //result_bmi.innerHTML = bmi_result[0].desc;
-        //resultArea.appendChild(result_bmi);
-        resultArea.innerHTML= select1+mbti_result[mbti_id].desc+'&nbsp;'+bmi_result[0].desc;
+        resultArea.innerHTML= mbti_result[mbti_id].desc+'&nbsp;'+bmi_result[0].desc;
         USERINFO[6] = 1;
     }
     else{
         USERINFO[6] = 0;
     }
     console.log(USERINFO[6]);
-    chrome.storage.sync.set({user_name:select1, pain:select3, pre:select4, equi:select5, mbti:select6[0], height:select6[1], weight:select6[2]}, function() {
-        /*console.log('Value is set to ' + user_name);
-        console.log(pain);
-        console.log(pre);
-        console.log(equi);
-        console.log(mbti);
-        console.log(height);
-        console.log(weight);*/
-        console.log("저장되었습니다~");
-    });
 
     //테스트
     compare();
 
 }
 
-function goNext(qIdx){
-    if(qIdx+1 === endPoint){
-        goResult(false);
-        return;
-    }
-    var q=document.querySelector('.qBox');
-    if(qIdx==5){q.innerHTML='Q6.'+select1[0]+'님'+qnaList[qIdx].q;}
-    else{q.innerHTML=qnaList[qIdx].q;}
-    var a=document.getElementById(question[qIdx])
-    a.style.display="";
-
-    console.log(qIdx);
-    
-    var status = document.querySelector('.statusBar')
-    status.style.width = (100/endPoint) * (qIdx + 1) + '%';
-}
-
-function begin(){ //시작하기 버튼
-    //algo("시작"); //이렇게 호출하면 test2_back.js에서 함수 가져올 수 있어요!
-    var fairycloset=[0,1,2,3];
-    chrome.storage.sync.set({fairy_bmi:1, fairy_name:"요정", fairy_closet:fairycloset}, function() {
-        console.log("요정정보 초기화");
-      }); 
-
-    main.style.WebkitAnimation = "fadeOut 1s";
-    main.style.WebkitAnimation = "fadeOut 1s";
-    setTimeout(()=>{
-        qna.style.WebkitAnimation = "fadeIn 1s";
-        qna.style.WebkitAnimation = "fadeIn 1s";
-        setTimeout(()=>{
-            main.style.display = "none";
-            qna.style.display = "block";
-        }, 450)
-        goNext(qIdx);
-    }, 450);
-
-}
-
-
-
 //document.getElementById("ok_btnR").addEventListener('click', compare);
 document.getElementById("ok_btnR").addEventListener('click', function(){
     let isChecked = false;
     let checkArr = document.getElementsByName("rec[]");
-    let exList = new Array();
+    //let exList = new Array();
     let ex_id = new Array();
     for(var i=0;i<checkArr.length;i++){
         if(checkArr[i].checked == true) {
             ex_id.push(checkArr[i].id);
-            //let textArr = document.getElementById(ex_id);
-        //console.log(ex_id, exer_where[exercise[ex_id]['exercise']].desc+exer_tool[exercise[ex_id]['tool']].desc+exer_fat[exercise[ex_id]['BMI']].desc, exercise[ex_id]['link']);
-            //exList.push({"id":i, "name":textArr.name, "date":[true, false, true, false, true, false, false], "link":exercise[ex_id].link});
-            //select3[count++]=i;
         }
     }
     console.log('선택된 id', ex_id);
@@ -393,25 +112,12 @@ document.getElementById("ok_btnR").addEventListener('click', function(){
         console.log("등록 안함.");
     }
 
-    /* confirm 저거 안되면 다시 살릴용도..
-        chrome.storage.sync.set({exList}, function() {
-        console.log('Value is set to ', exList);
-        console.log("저장되었습니다~");
-    });
-    */
 });
-/*
-                "name": {"type": "string"},
-                "time": {"type": "string"},
-                "date": {"type": "array"},
-                "link": {"type": "string"}
-*/
-//select1 = ["ID"]
-//select2 = [1] //auto XX
-//select3 = [5] //hurt
-//select4 = [5] //exercise
-//select5 = [5] //tool
-//select6 = ['INFJ',1] //mbti / bmi
+
+function setInfo(exList_t){
+    exList=exList_t;
+    console.log(exList);
+}
 
 
 var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&list=PLPPetu1spkealPT-BShcUFyWM0it3n2ql&index=4", "hurt":5, "exercise":0, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":1},
@@ -453,7 +159,7 @@ var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&lis
 var exerciseArea = document.querySelector('.exerciseList'); 
 
 function autoservice(){
-    alert(select2[0]);
+    alert(pain[0]);
 }
 
 
@@ -467,7 +173,7 @@ function compare(){
     }
     for(var i = 0 ; i < 32 ;i++){ //추후 32 >> exercise 길이만큼 받자
         var point = 10;
-    
+        console.log(exercise[i]['hurt']);
         //아픈부위 (상체/코어/하체) >> 이외는 모두 제거
         if(USERINFO[2] == 3){
             point+=10
