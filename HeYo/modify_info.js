@@ -84,6 +84,12 @@ submitBtn.addEventListener('click', function(){
 
 });
 
+document.getElementById('home').addEventListener("click", function(){
+  console.log("home");
+  history.back();
+});
+
+
 /*
   "type": "object",
   "properties": {

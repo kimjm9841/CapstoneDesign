@@ -51,11 +51,12 @@
     border-radius: 20px;
 }
 .put_custom_wrap input[type=checkbox] + label {
-    display: inline-block;
+   /* display: inline-block;*/
     border: 2px solid #bcbcbc;
     cursor: pointer;
     text-align: center;
-    margin:auto; /*이거 해도 가운데 정렬 안됨.*/
+    /*margin:auto; /*이거 해도 가운데 정렬 안됨.*/
+   /* vertical-align: middle;*/
 }
 .put_custom_wrap input[type=checkbox]:checked + label {
     background-color: #666666;

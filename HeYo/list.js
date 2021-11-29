@@ -7,7 +7,10 @@ document.getElementById("addBtn").addEventListener('click', function(){
     localStorage.setItem('btnName', 'add');
     window.open("list_popup.html", "a", "width=600, height=600, left=500, top=300");
 });
-
+document.getElementById('home').addEventListener("click", function(){
+    console.log("home");
+    history.back();
+});
 
 window.onload=function(){
     chrome.storage.sync.get("exList", function(result) {
@@ -109,3 +112,8 @@ function delete_entry(id){
         console.log("저장되었습니다~");
     });
 }
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    console.log("change recived!");
+    location.reload();                
+});

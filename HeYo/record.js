@@ -86,3 +86,8 @@ document.getElementById('per_previous').onclick = function(){
   document.getElementById('percentage').style.display = 'none';
   document.getElementById('exercise').style.display = 'block';
 }
+
+document.getElementById('home').addEventListener("click", function(){
+  console.log("home");
+  history.back();
+});
