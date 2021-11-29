@@ -1,14 +1,32 @@
+let achivement_absolute = new Array(6);
+let time_absolute = new Array(6);
+let achivement_relative = new Array(6);
+let time_relative = new Array(6);
+let user_id = 0;
+
+chrome.storage.sync.get("id", function(result) {
+  user_id = result.id;
+  if (user_id) {
+    console.log('User ID is  ', user_id);
+  }
+});
+
 function getData() {
   $.ajax({
-    url: "http://34.127.80.4/getStatsWeek.php",
+    url: "http://34.127.80.4/getProcess.php",
     type: "POST",
     data: {
-      user_id: 1000
+      user_id: user_id
     }
   }).done(function(data) {
-    //$('#result') = data;
-    console.log(data);
-    //console.log($('#result'));
+    data = JSON.parse(data);
+
+    for (var i=0; i<6; i++) {
+      achivement_absolute[i] = data[i].achieve_absolute;
+      time_absolute[i] = data[i].time_absolute;
+      achivement_relative[i] = data[i].achieve_relative;
+      time_relative[i] = data[i].time_relative;
+    }
   });
 }
 
@@ -20,7 +38,7 @@ new Chart(document.getElementById("achivementChart"), {
   data: {
     labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
     datasets: [{
-        data: [46,14,26,36,57,11],
+        data: achivement_absolute,
         label: "달성도(%)",
         backgroundColor: "#3e95cd",
         borderColor: "#3e95cd",
@@ -42,7 +60,7 @@ new Chart(document.getElementById("exerciseChart"), {
   data: {
     labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
     datasets: [{
-          data: [1106,1123,1162,1092,1177,1126],
+          data: time_absolute,
           label: "운동량(분)",
           backgroundColor: "#c45850",
           borderColor: "#c45850",
@@ -67,11 +85,11 @@ new Chart(document.getElementById("percentageChart"), {
         {
           label: "달성도",
           backgroundColor: "#3e95cd",
-          data: [33,21,83,78,11,45]
+          data: achivement_relative
         }, {
           label: "운동량",
           backgroundColor: "#c45850",
-          data: [8,47,75,34,66,92]
+          data: time_relative
         }
       ]
     },
