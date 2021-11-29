@@ -4,19 +4,12 @@ let achivement_relative = new Array(6);
 let time_relative = new Array(6);
 let user_id = 0;
 
-chrome.storage.sync.get("id", function(result) {
-  user_id = result.id;
-  if (user_id) {
-    console.log('User ID is  ', user_id);
-  }
-});
-
-function getData() {
+function getData(id) {
   $.ajax({
-    url: "http://34.127.80.4/getProcess.php",
+    url: "http://34.127.80.4/getStatsWeek.php",
     type: "POST",
     data: {
-      user_id: user_id
+      user_id: id
     }
   }).done(function(data) {
     data = JSON.parse(data);
@@ -28,9 +21,15 @@ function getData() {
       time_relative[i] = data[i].time_relative;
     }
   });
-}
+};
 
-getData()
+chrome.storage.sync.get("id", function(result) {
+  user_id = result.id;
+  if (user_id) {
+    console.log('User ID is  ', user_id);
+    getData(user_id);
+  }
+});
 
 
 new Chart(document.getElementById("achivementChart"), {
@@ -49,7 +48,7 @@ new Chart(document.getElementById("achivementChart"), {
   options: {
     title: {
       display: true,
-      text: '수행한 운동 수 / 계획한 운동 수'
+      text: '달성도란? 계획한 운동을 실제로 얼마나 수행했는지'
     }
   }
 });
@@ -71,7 +70,7 @@ new Chart(document.getElementById("exerciseChart"), {
   options: {
     title: {
       display: true,
-      text: '일주일간 수행한 총 운동시간'
+      text: '운동량이란? 일주일간 수행한 총 운동시간'
     }
   }
 });
@@ -83,11 +82,11 @@ new Chart(document.getElementById("percentageChart"), {
       labels: ['6주 전','5주 전','4주 전','3주 전','2주 전','1주 전'],
       datasets: [
         {
-          label: "달성도",
+          label: "달성도(백분위)",
           backgroundColor: "#3e95cd",
           data: achivement_relative
         }, {
-          label: "운동량",
+          label: "운동량(백분위)",
           backgroundColor: "#c45850",
           data: time_relative
         }
@@ -96,31 +95,36 @@ new Chart(document.getElementById("percentageChart"), {
     options: {
       title: {
         display: true,
-        text: '상대평가 (백분위 75 = 상위 25%)'
+        text: '나는 상위 몇 퍼센트? (백분위 75 = 상위 25%)'
       }
     }
 });
 
 
+document.getElementById('startButton').onclick = function(){
+  document.getElementById('main').style.display = 'none';
+  document.getElementById('achivement').style.display = 'block';
+};
+
 document.getElementById('achiv_next').onclick = function(){
   document.getElementById('achivement').style.display = 'none';
   document.getElementById('exercise').style.display = 'block';
-}
+};
 
 document.getElementById('exer_previous').onclick = function(){
   document.getElementById('exercise').style.display = 'none';
   document.getElementById('achivement').style.display = 'block';
-}
+};
 
 document.getElementById('exer_next').onclick = function(){
   document.getElementById('exercise').style.display = 'none';
   document.getElementById('percentage').style.display = 'block';
-}
+};
 
 document.getElementById('per_previous').onclick = function(){
   document.getElementById('percentage').style.display = 'none';
   document.getElementById('exercise').style.display = 'block';
-}
+};
 
 document.getElementById('home').addEventListener("click", function(){
   console.log("home");
