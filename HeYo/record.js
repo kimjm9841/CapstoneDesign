@@ -1,3 +1,20 @@
+function getData() {
+  $.ajax({
+    url: "http://34.127.80.4/getStatsWeek.php",
+    type: "POST",
+    data: {
+      user_id: 1000
+    }
+  }).done(function(data) {
+    //$('#result') = data;
+    console.log(data);
+    //console.log($('#result'));
+  });
+}
+
+getData()
+
+
 new Chart(document.getElementById("achivementChart"), {
   type: 'bar',
   data: {
