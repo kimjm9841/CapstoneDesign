@@ -13,6 +13,18 @@ document.getElementById('home').addEventListener("click", function(){
 });
 
 window.onload=function(){
+    chrome.alarms.clearAll();
+
+    console.log('notification!')
+    chrome.notifications.getAll((items) => {
+        if ( items ) {
+            for (let key in items) {
+                console.log(key);
+                chrome.notifications.clear(key);
+            }
+        }
+    });
+
     chrome.storage.sync.get("exList", function(result) {
         //let exList = result.exList
         setInfo(result.exList);
@@ -24,8 +36,6 @@ window.onload=function(){
 
     var length=exList.length;
     console.log("length: ",length);
-
-    chrome.alarms.clearAll();
     //printAlarm();
 }
 
@@ -96,19 +106,23 @@ function setInfo(exList_t){
                 for(let j=0;j<7;j++){
                     if(exList_t[i].date[j]==true) {
                         console.log(j, exList_t[i].date[j]);
-                        //let today = new Date().getDay();
-                        //console.log('요일',today);
-                        //let today2 = Date.now();
-                        //console.log('시간?',today2);
-                        //createAlarm(id+'_'+j)
+
                         console.log('addtime', calculate_scheduleAlarm(j, exList_t[i].time));
-                        createAlarm(exList_t[i].id+'_'+j, calculate_scheduleAlarm(j, exList_t[i].time));
+                        createAlarm(exList_t[i].id+'_'+j, calculate_scheduleAlarm(j, exList_t[i].time), exList_t[i].link);
                     }
                 }
             }
             
     }
     printAlarm();
+    console.log('notification?');
+    chrome.notifications.getAll((items) => {
+        if ( items ) {
+            for (let key in items) {
+                console.log(key);
+            }
+        }
+      });
 }
 
 
@@ -122,13 +136,7 @@ function delete_entry(id){
 
     exList=filtered;
     console.log(exList);
-    /*for (var i = 0; i < exList.length; i++) {
-        console.log(exList[i].id);
-        if (exList[i].id == id) { // 값이 같은 배열 인덱스 확인
-            exList.splice(i, 1);
-        }
-    }
-    console.log(exList);*/
+
     chrome.storage.sync.set({exList}, function() {
         console.log('Value is set to ', exList);
         console.log("저장되었습니다~");
@@ -139,44 +147,53 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     console.log("change recived!");
     location.reload();                
 });
-/*
-chrome.alarms.create('testAlarm',{
-    when: Date.now(),
-    periodInMinutes: 5
-});
 
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === "testAlarm") {
-        chrome.notifications.create('test', {
-            type: 'basic',
-            iconUrl: 'images/fairy_basic.png',
-            title: 'Test Message',
-            message: 'You are awesome!',
-            priority: 2
-        });
-    }
-});
-*/
-
-function createAlarm(name, addTime){
+function createAlarm(name, addTime, url){
     console.log(name+' 알람이 생성됩니다');
     chrome.alarms.create(name, {when: Date.now()+addTime,   periodInMinutes: 10080}); //1주일마다
+    var myNotificationID = name;
 
     chrome.alarms.onAlarm.addListener((alarm) => {
         if (alarm.name == name) {
-            chrome.notifications.create('test', {
+            chrome.notifications.create(name, {
                 type: 'basic',
                 iconUrl: 'images/fairy_basic.png',
                 title: 'Test Message',
-                message: 'You are awesome!',
+                message: '운동할 시간이야!',
                 priority: 2,
                 requireInteraction: true,
                 buttons: [
                   { title: 'Exrcise' },
-                  { title: 'Delay' },
+                  { title: 'Cancle' },
                 ]
             
+            }
+            /*,  function(id) {
+                myNotificationID = id;
+            }*/);
+
+            // Respond to the user's clicking one of the buttons
+            chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) { //notifId
+            if (notifId === myNotificationID) {
+                if (btnIdx === 0) {
+                    window.open(url); //exercise 눌렀을 때 페이지 이동
+                } else if (btnIdx === 1) {
+                    saySorry(); //cancle 눌렀을 때 기능 구현
+                }
+            }
             });
+
+            // Add this to also handle the user's clicking 
+            // the small 'x' on the top right corner
+            chrome.notifications.onClosed.addListener(function() {
+                //saySorry(); //여기에 무시했을 때 계산 함수 넣으면 될 거 같아요(요정 비만도 증가)
+            });
+
+            // Handle the user's rejection 
+            // (simple ignore if you just want to hide the notification)
+            function saySorry() {
+                alert("Sorry to bother you !");
+            }
         }
     });
 }
@@ -187,25 +204,7 @@ function clearAlarm(name){
 function printAlarm(){
     console.log(chrome.alarms.getAll());
 }
-/*
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == "testAlarm") {
-        chrome.notifications.create('test', {
-            type: 'basic',
-            iconUrl: 'images/fairy_basic.png',
-            title: 'Test Message',
-            message: 'You are awesome!',
-            priority: 2,
-            requireInteraction: true,
-            buttons: [
-              { title: 'Exrcise' },
-              { title: 'Delay' },
-            ]
-        
-        });
-    }
-  });
-*/
+
 function calculate_scheduleAlarm(input_date, input_time) { //input_hours: 시, input_minutes: 분, input_date: 요일
     let today = new Date();
     console.log('요일',today.getDay());
@@ -239,21 +238,6 @@ function calculate_scheduleAlarm(input_date, input_time) { //input_hours: 시, i
     minutesDif=minutesDif*60000;
 
     let addTime = dif*86400000+hourDif+minutesDif;
-    
-    /*
-    let dateValue = input_date.replace(/\-/g, ""); 
-    
-    let input_year = dateValue.substring(0,4);
-    let input_month = dateValue.substring(4,6)-1;
-    let input_dates = dateValue.substring(6,8);
-    
-    const {year, month, date, hours, minutes, seconds} = currentDate();
-
-    let strArray = string.split(':');
-    let alarm_Date = new Date(input_year, input_month, input_dates, input_hours, input_minutes, 0).getTime();
-    let current_Date = new Date(year, month, date, hours, minutes, seconds).getTime();
-    let addTime = alarm_Date - current_Date;
-    */
 
     return addTime;
 }

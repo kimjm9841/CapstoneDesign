@@ -20,7 +20,7 @@ function getNotificationId() {
 }
 */
 
-
+/*
 function setAlarm(time, url){
 }
 
@@ -46,3 +46,33 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       });
   }
 });
+*/
+
+
+/*
+var myNotificationID = null;
+
+
+// Respond to the user's clicking one of the buttons
+chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
+  if (notifId === myNotificationID) {
+      if (btnIdx === 0) {
+          window.open("...");
+      } else if (btnIdx === 1) {
+          saySorry();
+      }
+  }
+});
+
+// Add this to also handle the user's clicking 
+// the small 'x' on the top right corner
+chrome.notifications.onClosed.addListener(function() {
+  saySorry();
+});
+
+// Handle the user's rejection 
+// (simple ignore if you just want to hide the notification)
+function saySorry() {
+  alert("Sorry to bother you !");
+}
+*/
