@@ -438,7 +438,7 @@ document.getElementById("ok_btnR").addEventListener('click', function(){
 //select6 = ['INFJ',1] //mbti / bmi
 
 
-var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&list=PLPPetu1spkealPT-BShcUFyWM0it3n2ql&index=4", "hurt":5, "exercise":0, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":1},
+/*var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&list=PLPPetu1spkealPT-BShcUFyWM0it3n2ql&index=4", "hurt":5, "exercise":0, "tool":1, "MBTI":"tp","MBTI2":"fp", "BMI":1},
  {"id":2, "link":"https://www.youtube.com/watch?v=87uwSVdvPY8&t=909s", "hurt":5, "exercise":0, "tool":1, "MBTI":"tj","MBTI2":"", "BMI":1},
  {"id":3, "link":"https://www.youtube.com/watch?v=WKtEJon-85s", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"fp", "BMI":1},
  {"id":4, "link":"https://www.youtube.com/watch?v=QA5jS0dPa6w", "hurt":5, "exercise":0, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":1},
@@ -470,7 +470,22 @@ var exercise = [{"id":1, "link":"https://www.youtube.com/watch?v=IS5OA7GeBJc&lis
  {"id":30, "link":"https://www.youtube.com/watch?v=lkSweEq292o", "hurt":5, "exercise":3, "tool":0, "MBTI":"fj","MBTI2":"tp", "BMI":0},
  {"id":31, "link":"https://www.youtube.com/watch?v=zSJYAyoojdw", "hurt":5, "exercise":3, "tool":1, "MBTI":"tp","MBTI2":"tj", "BMI":0},
  {"id":32, "link":"https://www.youtube.com/watch?v=s14NQ6Cz4QE", "hurt":5, "exercise":3, "tool":1, "MBTI":"","MBTI2":"fp", "BMI":0}
-]
+]*/
+
+let exercise = [];
+
+function getData() {
+  $.ajax({
+    url: "http://34.127.80.4/getVideo.php",
+    type: "POST",
+    data: {}
+  }).done(function(data) {
+    exercise = JSON.parse(data);
+    console.log(exercise);
+  });
+};
+
+getData();
 
 
 
