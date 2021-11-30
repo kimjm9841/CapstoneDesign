@@ -13,20 +13,20 @@ const qnaList=[
         ]
     },
     {
-        q: 'Q3. 요즘 어디 아프신 곳이 있나요?',
+        q: 'Q3. 요즘 운동하면 아픈 부위가 있나요??',
         a: [
-                {answer: '상체', type: [0]},
-                {answer: '코어', type: [1]},
-                {answer: '하체', type: [2]},
+                {answer: '상체(어깨,팔)', type: [0]},
+                {answer: '코어(등,배)', type: [1]},
+                {answer: '하체(다리,발)', type: [2]},
                 {answer: '없어!', type: [3]}
         ]
     },
     {
         q: 'Q4. 선호하시는 운동 부위가 있나요?',
         a: [
-                {answer: '상체', type: [0]},
-                {answer: '코어', type: [1]},
-                {answer: '하체', type: [2]},
+                {answer: '상체(어깨,팔)', type: [0]},
+                {answer: '코어(등,배)', type: [1]},
+                {answer: '하체(다리,발)', type: [2]},
                 {answer: '없어!', type: [3]}
         ]
     },
@@ -127,6 +127,14 @@ const exer_tool=[
     {
         tool: 'dumbel',
         desc: '덤벨 '
+    },
+    {
+        tool: 'bicycle',
+        desc: '사이클 '
+    },
+    {
+        tool: 'running',
+        desc: '러닝머신'
     },
     {
         tool: 'none',
