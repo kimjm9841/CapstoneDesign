@@ -24,10 +24,14 @@ window.onload=function(){
 
     var length=exList.length;
     console.log("length: ",length);
+
+    chrome.alarms.clearAll();
+    //printAlarm();
 }
 
 function setInfo(exList_t){
     exList=exList_t;
+    console.log('길이', exList_t.length);
     if(exList==null) console.log("없어");
     console.log("1", exList);//, "length= "+exList.length);
     var listArea = document.querySelector('.lists');
@@ -86,7 +90,25 @@ function setInfo(exList_t){
             //팝업 안에서 정보 수정 가능.
             //여기 같은 줄에 수정, 삭제 버튼 만들기.
         }
+            //알림 만들기
+            for(let i=0;i<exList_t.length;i++){
+                console.log('exList_id '+exList_t[i].id, 'exList_date '+exList_t[i].date);
+                for(let j=0;j<7;j++){
+                    if(exList_t[i].date[j]==true) {
+                        console.log(j, exList_t[i].date[j]);
+                        //let today = new Date().getDay();
+                        //console.log('요일',today);
+                        //let today2 = Date.now();
+                        //console.log('시간?',today2);
+                        //createAlarm(id+'_'+j)
+                        console.log('addtime', calculate_scheduleAlarm(j, exList_t[i].time));
+                        createAlarm(exList_t[i].id+'_'+j, calculate_scheduleAlarm(j, exList_t[i].time));
+                    }
+                }
+            }
+            
     }
+    printAlarm();
 }
 
 
@@ -117,3 +139,121 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     console.log("change recived!");
     location.reload();                
 });
+/*
+chrome.alarms.create('testAlarm',{
+    when: Date.now(),
+    periodInMinutes: 5
+});
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === "testAlarm") {
+        chrome.notifications.create('test', {
+            type: 'basic',
+            iconUrl: 'images/fairy_basic.png',
+            title: 'Test Message',
+            message: 'You are awesome!',
+            priority: 2
+        });
+    }
+});
+*/
+
+function createAlarm(name, addTime){
+    console.log(name+' 알람이 생성됩니다');
+    chrome.alarms.create(name, {when: Date.now()+addTime,   periodInMinutes: 10080}); //1주일마다
+
+    chrome.alarms.onAlarm.addListener((alarm) => {
+        if (alarm.name == name) {
+            chrome.notifications.create('test', {
+                type: 'basic',
+                iconUrl: 'images/fairy_basic.png',
+                title: 'Test Message',
+                message: 'You are awesome!',
+                priority: 2,
+                requireInteraction: true,
+                buttons: [
+                  { title: 'Exrcise' },
+                  { title: 'Delay' },
+                ]
+            
+            });
+        }
+    });
+}
+function clearAlarm(name){
+    chrome.alarms.clear(name);
+    console.log(name+' 알람이 해제됩니다');
+}
+function printAlarm(){
+    console.log(chrome.alarms.getAll());
+}
+/*
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name == "testAlarm") {
+        chrome.notifications.create('test', {
+            type: 'basic',
+            iconUrl: 'images/fairy_basic.png',
+            title: 'Test Message',
+            message: 'You are awesome!',
+            priority: 2,
+            requireInteraction: true,
+            buttons: [
+              { title: 'Exrcise' },
+              { title: 'Delay' },
+            ]
+        
+        });
+    }
+  });
+*/
+function calculate_scheduleAlarm(input_date, input_time) { //input_hours: 시, input_minutes: 분, input_date: 요일
+    let today = new Date();
+    console.log('요일',today.getDay());
+    let dif = input_date-today.getDay()+1;
+    console.log('차이',dif);
+    if(dif<0) dif=7-dif;
+//86400000ms = 1일
+
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes();  // 분
+    let seconds = today.getSeconds();  // 초
+    let milliseconds = today.getMilliseconds(); // 밀리초
+
+    let timeArray = input_time.split(':');
+    for(let i=0;i<timeArray.length;i++){
+        timeArray[i] = parseInt(timeArray[i]);
+    }
+
+    let hourDif = hours-timeArray[0];//timeArray[0]-hours;
+    let minutesDif = minutes-timeArray[1]; //timeArray[1]-minutes;
+
+    if(hourDif<0) hourDif=-hourDif;
+    if(minutesDif<0) minutesDif=-minutesDif;
+
+    console.log(timeArray, hours, minutes);
+    console.log(typeof(timeArray[0]));
+    console.log('시간 차이', hourDif, hourDif*3600000);
+    console.log('분 차이', minutesDif, minutesDif*60000);
+
+    hourDif=hourDif*3600000;
+    minutesDif=minutesDif*60000;
+
+    let addTime = dif*86400000+hourDif+minutesDif;
+    
+    /*
+    let dateValue = input_date.replace(/\-/g, ""); 
+    
+    let input_year = dateValue.substring(0,4);
+    let input_month = dateValue.substring(4,6)-1;
+    let input_dates = dateValue.substring(6,8);
+    
+    const {year, month, date, hours, minutes, seconds} = currentDate();
+
+    let strArray = string.split(':');
+    let alarm_Date = new Date(input_year, input_month, input_dates, input_hours, input_minutes, 0).getTime();
+    let current_Date = new Date(year, month, date, hours, minutes, seconds).getTime();
+    let addTime = alarm_Date - current_Date;
+    */
+
+    return addTime;
+}
