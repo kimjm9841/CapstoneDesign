@@ -1,21 +1,21 @@
 function setInfo(pain, equi, weight, height, mbti, pre){
   console.log(pain, equi, weight, height, mbti, pre);
-  if(!isNaN(pain)){
+  if(pain != undefined){
     for(let i=0;i<pain.length;i++){
       let num=pain[i]+1;
       document.getElementById("q3_"+num).checked = true;
     }   
   }
-  if(!isNaN(pre)){
+  if(pre != undefined){
     for(let i=0;i<pre.length;i++){
       let num=pre[i]+1;
       document.getElementById("q4_"+num).checked = true;
     }  
   }
-  if(!isNaN(equi)){
+  if(equi != undefined){
     for(let i=0;i<equi.length;i++){
       let num=equi[i]+1;
-      console.log(equi.length, equi);
+      //console.log('안돼?', equi.length, equi);
       document.getElementById("q5_"+num).checked = true;
     }    
   } 
@@ -30,7 +30,7 @@ function setInfo(pain, equi, weight, height, mbti, pre){
   }
 }
 
-let keys = ["pain", "equi", "weight", "height", "mbti", "pre"]
+let keys = ["pain", "equi", "weight", "height", "mbti", "pre", "user_name"]
 chrome.storage.sync.get(keys, function(result) {
     let value1 = result.pain;
     let value2 = result.equi;
@@ -38,8 +38,8 @@ chrome.storage.sync.get(keys, function(result) {
     let value4 = result.height;
     let value5 = result.mbti;
     let value6 = result.pre;
-
-    console.log('Value currently is ',value1,value2,value3,value4,value5,value6);
+    let value7 = result.user_name;
+    console.log('Value currently is ',value1,value2,value3,value4,value5,value6,value7);
     setInfo(value1,value2,value3,value4,value5,value6);
   });
 

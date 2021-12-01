@@ -159,7 +159,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 
 function createAlarm(name, addTime, url){
     console.log(name+' 알람이 생성됩니다');
-    chrome.alarms.create(name, {when: Date.now()+addTime,   periodInMinutes: 10080}); //1주일마다
+    chrome.alarms.create(name, {when: Date.now()+addTime,   periodInMinutes: 10080}); //1주일마다 10080
     var myNotificationID = name;
 
     chrome.alarms.onAlarm.addListener((alarm) => {
@@ -191,10 +191,27 @@ function createAlarm(name, addTime, url){
             chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) { //notifId
             if (notifId === myNotificationID) {
                 if (btnIdx === 0) {
-                  //window.open(url); //exercise 눌렀을 때 페이지 이동
-                  insertStats();
+                  window.open(url); //exercise 눌렀을 때 페이지 이동
+                  insertStats(url);
+                  chrome.storage.sync.get("fairy_bmi", function(result) { //운동하면 비만도 -2
+                    var fairy_bmi = 0;
+                    if (!isNaN(result.fairy_bmi)) {
+                        fairy_bmi = result.fairy_bmi;
+                    }
+                    fairy_bmi -= 2;
+                    if(fairy_bmi<0) fairy_bmi=0;
+                    chrome.storage.sync.set({fairy_bmi:fairy_bmi}, function() {});
+                  });
                 } else if (btnIdx === 1) {
                     cancle(); //cancle 눌렀을 때 기능 구현
+                    chrome.storage.sync.get("fairy_bmi", function(result) { //운동 취소하면 비만도 +3
+                        var fairy_bmi = 0;
+                        if (!isNaN(result.fairy_bmi)) {
+                            fairy_bmi = result.fairy_bmi;
+                        }
+                        fairy_bmi += 3;
+                        chrome.storage.sync.set({fairy_bmi:fairy_bmi}, function() {});
+                      });
                 }
             }
             });
@@ -205,8 +222,20 @@ function createAlarm(name, addTime, url){
                 //saySorry(); //여기에 무시했을 때 계산 함수 넣으면 될 거 같아요(요정 비만도 증가)
             });
 
-            function insertStats() {
-              var len_video = 0;
+            function insertStats(url) {
+                var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+                var len_video = 0;
+  
+                $.ajax({
+                  url: "http://34.127.80.4/getTime.php",
+                  type: "POST",
+                  data: {
+                    video_id: videoid[1]
+                  }
+                }).done(function(data) {
+                  len_video = data;
+                  console.log("영상 길이", len_video);
+                });
               // 동영상 길이 파악
 
               var user_id = 0;

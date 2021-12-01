@@ -150,9 +150,18 @@ function setInfo(fairyname, body_value, currentclothes, fairyclothes){
 
 window.onload=function(){
   //chrome.storage에서 데이터 받기
-  let keys=["fairy_name", "fairy_bmi", "fairy_current_clothes", "fairy_closet"]
+  let keys=["fairy_name", "fairy_bmi", "fairy_current_clothes", "fairy_closet", "exList", "user_name"]
   var fairyname, body_value, currentclothes, fairyclothes;
   chrome.storage.sync.get(keys, function(result) {
+      //console.log(result.exList, isEmptyArr(result.exList), result.user_name);
+      //if(result.user_name == undefined) console.log('이름 안정함');
+      if(isEmptyArr(result.exList) && result.user_name == undefined){
+        console.log('초기설정 && 운동리스트 추가 안함');
+        let question = document.getElementById('question');
+        question.setAttribute('style', 'display:block');
+      } 
+
+
       let fairyname = result.fairy_name;
       document.getElementById('fairyname').value=result.fairy_name;
       let body_value = result.fairy_bmi;
@@ -162,6 +171,12 @@ window.onload=function(){
     });
 }
 
+function isEmptyArr(arr)  {
+  if(Array.isArray(arr) && arr.length === 0)  {
+    return true;
+  }
+  return false;
+}
 var submitBtn = document.getElementById("submitBtn");
 submitBtn.addEventListener('click', function(){
   var fairyname = document.getElementById('fairyname').value;

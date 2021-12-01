@@ -55,13 +55,15 @@ window.onload=function(){
     else if(mbti[0]=='istj' || mbti[0]=='intj' || mbti[0]=='estj' || mbti[0]=='entj') mbti_id=3;
     console.log(mbti_result[mbti_id]);
 
-    chrome.storage.sync.get("exList", function(result) {
+    let keys = ["exList", "user_name"];
+    chrome.storage.sync.get(keys, function(result) {
         let exList = result.exList
         setInfo(exList);
-        console.log('Value currently is ', exList);
+        console.log('Value currently is ', exList, result.user_name);
+        resultArea.innerHTML= result.user_name+mbti_result[mbti_id].desc+'&nbsp;';
     });
 
-    resultArea.innerHTML= mbti_result[mbti_id].desc+'&nbsp;';
+    //resultArea.innerHTML= mbti_result[mbti_id].desc+'&nbsp;';
 
     var height=height*0.01;
     var height_2=height*height;

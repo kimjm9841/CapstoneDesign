@@ -293,12 +293,12 @@ function goResult(isq2){
     USERINFO[3] = select4;
     USERINFO[4] = select5;
     USERINFO[5] = select6[0];
-    console.log(select1);
-    console.log(select2);
-    console.log(select3);
-    console.log(select4);
-    console.log(select5);
-    console.log(select6);
+    console.log(select1); //이름
+    console.log(select2); //운동계획 선호
+    console.log(select3); //아픈부위
+    console.log(select4); //선호부위
+    console.log(select5); //운동기구
+    console.log(select6); //mbti, 키, 몸무게
 
     var resultArea = document.querySelector('.resultDesc');
     var result_title;
