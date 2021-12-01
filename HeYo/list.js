@@ -70,11 +70,11 @@ function setInfo(exList_t){
                 //exList.splice(i, 1);
                 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
                     delete_entry(this.id);
-                    location.reload();                
+                    location.reload();
                 }else{   //취소
                     console.log("취소 안함.");
                 }
-            }); 
+            });
 
             modify_btn.classList.add('listBtn');
             modify_btn.classList.add('my-3');
@@ -112,7 +112,7 @@ function setInfo(exList_t){
                     }
                 }
             }
-            
+
     }
     printAlarm();
     console.log('notification?');
@@ -143,10 +143,18 @@ function delete_entry(id){
     });
 }
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-    console.log("change recived!");
-    location.reload();                
-});
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+      console.log(
+        `Storage key "${key}" in namespace "${namespace}" changed.`,
+        `Old value was "${oldValue}", new value is "${newValue}".`
+      );
+      if(key=='exList'){
+          console.log('change recived! exList!!');
+          location.reload();
+      }
+    }
+  });
 
 function createAlarm(name, addTime, url){
     console.log(name+' 알람이 생성됩니다');
@@ -166,33 +174,93 @@ function createAlarm(name, addTime, url){
                   { title: 'Exrcise' },
                   { title: 'Cancle' },
                 ]
-            
-            }
-            /*,  function(id) {
-                myNotificationID = id;
-            }*/);
+
+            },  function(id) {
+              chrome.storage.sync.get("planned_num", function(result) {
+                var planned_num = 0;
+                if (!isNaN(result.planned_num)) {
+                  planned_num = result.planned_num;
+                }
+                planned_num += 1;
+                chrome.storage.sync.set({planned_num:planned_num}, function() {});
+              });
+            });
 
             // Respond to the user's clicking one of the buttons
             chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) { //notifId
             if (notifId === myNotificationID) {
                 if (btnIdx === 0) {
-                    window.open(url); //exercise 눌렀을 때 페이지 이동
+                  //window.open(url); //exercise 눌렀을 때 페이지 이동
+                  insertStats();
                 } else if (btnIdx === 1) {
-                    saySorry(); //cancle 눌렀을 때 기능 구현
+                    cancle(); //cancle 눌렀을 때 기능 구현
                 }
             }
             });
 
-            // Add this to also handle the user's clicking 
+            // Add this to also handle the user's clicking
             // the small 'x' on the top right corner
             chrome.notifications.onClosed.addListener(function() {
                 //saySorry(); //여기에 무시했을 때 계산 함수 넣으면 될 거 같아요(요정 비만도 증가)
             });
 
-            // Handle the user's rejection 
+            function insertStats() {
+              var len_video = 0;
+              // 동영상 길이 파악
+
+              var user_id = 0;
+              var planned_num = 0;
+              var practiced_num = 0;
+              var exercise_time = 0;
+
+              chrome.storage.sync.get(["id", "planned_num", "practiced_num", "exercise_time"], function(result) {
+                user_id = result.id;
+                planned_num = result.planned_num;
+
+                if (result.practiced_num) {
+                  practiced_num = result.practiced_num;
+                }
+                practiced_num += 1;
+
+                if (result.exercise_time) {
+                  exercise_time = result.exercise_time;
+                }
+                exercise_time += len_video;
+
+                chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
+
+                console.log("user_id", user_id);
+                console.log("planned_num", planned_num);
+                console.log("practiced_num", practiced_num);
+                console.log("exercise_time", exercise_time);
+                $.ajax({
+                  url: "http://localhost/db/process.php",
+                  type: "POST",
+                  data: {
+                    user_id: user_id
+                    , planned_num: planned_num
+                    , practiced_num: practiced_num
+                    , exercise_time: exercise_time
+                  }
+                }).done(function(data) {
+                  console.log(data);
+                  if (data == 1) {
+                    console.log("디비 저장 완료");
+                    //chrome.storage.sync.set({planned_num:0, practiced_num:0, exercise_time:0}, function() {});
+                  }
+                  else if (data == 0) {
+                    console.log("아직 일주일 안 지남");
+                    //chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
+                  }
+                });
+              });
+            }
+
+            // Handle the user's rejection
             // (simple ignore if you just want to hide the notification)
-            function saySorry() {
-                alert("Sorry to bother you !");
+            function cancle() {
+                alert("Please exercise together next time!");
+                //요정 비만도 변경
             }
         }
     });
