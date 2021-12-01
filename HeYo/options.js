@@ -59,7 +59,7 @@ function setInfo(fairyname, body_value, currentclothes, fairyclothes){
   else {
     //alert("요정 비만도 로드에 오류가 발생했습니다.");
     //return -1;
-    var fairycloset=[1,2,3];
+    var fairycloset=[0,1,2,3];
     chrome.storage.sync.set({fairy_bmi:1, fairy_name:"요정", fairy_closet:fairycloset}, function() {
         console.log("요정정보 초기화");
       });
@@ -68,7 +68,9 @@ function setInfo(fairyname, body_value, currentclothes, fairyclothes){
     currentclothes=0;
     fairyclothes=[0,1,2,3];
     body_level=1;
+    console.log(fairyname, body_value, currentclothes, fairyclothes);
   }
+  console.log(fairyname, body_value, currentclothes, fairyclothes);
   console.log(body_value);
   console.log(body_level);
   document.getElementById('fairyname').value=fairyname;

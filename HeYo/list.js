@@ -9,7 +9,8 @@ document.getElementById("addBtn").addEventListener('click', function(){
 });
 document.getElementById('home').addEventListener("click", function(){
     console.log("home");
-    history.back();
+    //history.back();
+    location.replace('/options.html');
 });
 
 window.onload=function(){
@@ -41,7 +42,7 @@ window.onload=function(){
 
 function setInfo(exList_t){
     exList=exList_t;
-    console.log('길이', exList_t.length);
+    //console.log('길이', exList_t.length);
     if(exList==null) console.log("없어");
     console.log("1", exList);//, "length= "+exList.length);
     var listArea = document.querySelector('.lists');
@@ -227,14 +228,8 @@ function createAlarm(name, addTime, url){
                 }
                 exercise_time += len_video;
 
-                chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
-
-                console.log("user_id", user_id);
-                console.log("planned_num", planned_num);
-                console.log("practiced_num", practiced_num);
-                console.log("exercise_time", exercise_time);
                 $.ajax({
-                  url: "http://localhost/db/process.php",
+                  url: "http://34.127.80.4/insertStats.php",
                   type: "POST",
                   data: {
                     user_id: user_id
@@ -246,11 +241,11 @@ function createAlarm(name, addTime, url){
                   console.log(data);
                   if (data == 1) {
                     console.log("디비 저장 완료");
-                    //chrome.storage.sync.set({planned_num:0, practiced_num:0, exercise_time:0}, function() {});
+                    chrome.storage.sync.set({planned_num:0, practiced_num:0, exercise_time:0}, function() {});
                   }
                   else if (data == 0) {
                     console.log("아직 일주일 안 지남");
-                    //chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
+                    chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
                   }
                 });
               });

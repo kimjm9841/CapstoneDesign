@@ -128,5 +128,6 @@ document.getElementById('per_previous').onclick = function(){
 
 document.getElementById('home').addEventListener("click", function(){
   console.log("home");
-  history.back();
+  //history.back();
+  location.replace('/options.html');
 });
