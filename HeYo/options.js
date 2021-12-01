@@ -155,7 +155,7 @@ window.onload=function(){
   chrome.storage.sync.get(keys, function(result) {
       //console.log(result.exList, isEmptyArr(result.exList), result.user_name);
       //if(result.user_name == undefined) console.log('이름 안정함');
-      if(isEmptyArr(result.exList) && result.user_name == undefined){
+      if(!isEmptyArr(result.exList) && result.user_name == undefined){
         console.log('초기설정 && 운동리스트 추가 안함');
         let question = document.getElementById('question');
         question.setAttribute('style', 'display:block');
