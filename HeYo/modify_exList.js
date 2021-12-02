@@ -39,9 +39,9 @@ window.onload=function(){
 
     USERINFO[0] = "user_name";
     USERINFO[1] = 1;
-    USERINFO[2] = pain[0];
-    USERINFO[3] = pre[0];
-    USERINFO[4] = equi[0];
+    USERINFO[2] = pain;
+    USERINFO[3] = pre;
+    USERINFO[4] = equi;
     USERINFO[5] = mbti;
 
     var resultArea = document.querySelector('.resultDesc'); 
@@ -79,7 +79,7 @@ window.onload=function(){
     }
     console.log(USERINFO[6]);
 
-    compare();
+    //compare();
     //테스트
 }
 
@@ -130,6 +130,7 @@ function getData() {
     }).done(function(data) {
       exercise = JSON.parse(data);
       console.log(exercise);
+      compare();
     });
   };
   
@@ -144,15 +145,17 @@ function autoservice(){
 
 function compare(){
     console.log("===================")
-    console.log(USERINFO[2][0], USERINFO[2][1], USERINFO[2][3]);
+    console.log(USERINFO[0], USERINFO[1], USERINFO[2], USERINFO[2].length, USERINFO[3], USERINFO[4], USERINFO[5]);//[0], USERINFO[2][1], USERINFO[2][3]);
 
     var point_list = [];
+    console.log(exercise.length);
     for(var i = 0 ; i < exercise.length ;i++){ //추후 32 >> exercise 길이만큼 받자
         var point = 50;
         
         var temppoint = false;
         console.log(i)
 
+        console.log(USERINFO[2].length);
         for(var j = 0 ; j < USERINFO[2].length ; j++){
             if(USERINFO[2][j] == 3){
                 point+=10;
