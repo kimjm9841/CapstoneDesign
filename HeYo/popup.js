@@ -44,7 +44,10 @@ function setInfo(fairy_name, body_value, fairy_current_clothes, alarm){
 
   var src=null;
   if(fairy_current_clothes==null){src="/images/fairy_lv"+body_level+"_0.png";}
-  else{src="/images/fairy_lv"+body_level+"_"+fairy_current_clothes+".png";}
+  else{
+    if(body_level>=3){src="/images/fairy_lv"+body_level+"_0.png";}
+    else{src="/images/fairy_lv"+body_level+"_"+fairy_current_clothes+".png";}
+  }
   //if(fairyLevel==1){src="/images/fairy_lv"+body_level+"_"+fairy_current_clothes+".png";}
   //else{src="/images/fairy_lv"+fairyLevel+".png";}
   console.log(src);
