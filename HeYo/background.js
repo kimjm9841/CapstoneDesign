@@ -1,4 +1,4 @@
-/*
+
 chrome.notifications.create(getNotificationId(), {
     type: 'basic',
     title: '운동명',

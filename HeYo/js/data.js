@@ -134,7 +134,7 @@ const exer_tool=[
     },
     {
         tool: 'running',
-        desc: '러닝머신'
+        desc: '러닝머신 '
     },
     {
         tool: 'none',
