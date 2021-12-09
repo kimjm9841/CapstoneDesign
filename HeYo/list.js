@@ -225,7 +225,7 @@ function createAlarm(name, addTime, url){
             function insertStats(url) {
                 var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
                 var len_video = 0;
-  
+
                 $.ajax({
                   url: "http://34.127.80.4/getTime.php",
                   type: "POST",
@@ -235,49 +235,50 @@ function createAlarm(name, addTime, url){
                 }).done(function(data) {
                   len_video = data;
                   console.log("영상 길이", len_video);
+
+                  var user_id = 0;
+                  var planned_num = 0;
+                  var practiced_num = 0;
+                  var exercise_time = 0;
+
+                  chrome.storage.sync.get(["id", "planned_num", "practiced_num", "exercise_time"], function(result) {
+                    user_id = result.id;
+                    planned_num = result.planned_num;
+
+                    if (result.practiced_num) {
+                      practiced_num = result.practiced_num;
+                    }
+                    practiced_num += 1;
+
+                    if (result.exercise_time) {
+                      exercise_time = result.exercise_time;
+                    }
+                    exercise_time = parseInt(exercise_time) + parseInt(len_video);
+
+                    $.ajax({
+                      url: "http://34.127.80.4/insertStats.php",
+                      type: "POST",
+                      data: {
+                        user_id: user_id
+                        , planned_num: planned_num
+                        , practiced_num: practiced_num
+                        , exercise_time: exercise_time
+                      }
+                    }).done(function(data) {
+                      if (data == 1) {
+                        console.log("디비 저장 완료");
+                        chrome.storage.sync.set({planned_num:0, practiced_num:0, exercise_time:0}, function() {});
+                      }
+                      else if (data == 0) {
+                        console.log("아직 일주일 안 지남");
+                        chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
+                      }
+                    });
+                  });
                 });
               // 동영상 길이 파악
 
-              var user_id = 0;
-              var planned_num = 0;
-              var practiced_num = 0;
-              var exercise_time = 0;
 
-              chrome.storage.sync.get(["id", "planned_num", "practiced_num", "exercise_time"], function(result) {
-                user_id = result.id;
-                planned_num = result.planned_num;
-
-                if (result.practiced_num) {
-                  practiced_num = result.practiced_num;
-                }
-                practiced_num += 1;
-
-                if (result.exercise_time) {
-                  exercise_time = result.exercise_time;
-                }
-                exercise_time += len_video;
-
-                $.ajax({
-                  url: "http://34.127.80.4/insertStats.php",
-                  type: "POST",
-                  data: {
-                    user_id: user_id
-                    , planned_num: planned_num
-                    , practiced_num: practiced_num
-                    , exercise_time: exercise_time
-                  }
-                }).done(function(data) {
-                  console.log(data);
-                  if (data == 1) {
-                    console.log("디비 저장 완료");
-                    chrome.storage.sync.set({planned_num:0, practiced_num:0, exercise_time:0}, function() {});
-                  }
-                  else if (data == 0) {
-                    console.log("아직 일주일 안 지남");
-                    chrome.storage.sync.set({practiced_num:practiced_num, exercise_time:exercise_time}, function() {});
-                  }
-                });
-              });
             }
 
             // Handle the user's rejection
