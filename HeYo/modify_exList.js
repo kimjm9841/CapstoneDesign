@@ -145,25 +145,23 @@ function autoservice(){
 
 function compare(){
     console.log("===================")
-    console.log(USERINFO[0], USERINFO[1], USERINFO[2], USERINFO[2].length, USERINFO[3], USERINFO[4], USERINFO[5]);//[0], USERINFO[2][1], USERINFO[2][3]);
+    console.log(USERINFO[2][0], USERINFO[2][1], USERINFO[2][3]);
 
     var point_list = [];
-    console.log(exercise.length);
     for(var i = 0 ; i < exercise.length ;i++){ //추후 32 >> exercise 길이만큼 받자
         var point = 50;
-        
+        var disable = false;
         var temppoint = false;
         console.log(i)
 
-        console.log(USERINFO[2].length);
         for(var j = 0 ; j < USERINFO[2].length ; j++){
             if(USERINFO[2][j] == 3){
-                point+=10;
+                point+= 0;
                 console.log("아픔X 전부위")
                 break;
             }//아픈부위가 없다면 전 영상 추천
             else if(USERINFO[2][j] == exercise[i]['hurt']){
-                point-=20;
+                point-=30;
                 temppoint = false;
                 console.log("아픔 아픔")
                 break;
@@ -174,25 +172,25 @@ function compare(){
             }//아픈부위관련 없는 운동이면
         } 
         if(temppoint = true){
-            point += 5;
+            point += 0;
         }//반복문을 돌리기 때문에 점수가 중첩될수 있다. 
          //user = {0,1} exercise = {1}이라면 처음루틴에서 else문을 한번 더 들어가기 때문
         temppoint = false;
 
         for(var j = 0 ; j < USERINFO[3].length ; j++){
             if(USERINFO[3][j] == 3){   
-                point += 10;     
+                point += 0;     
                 console.log("운동부위X 전영상")
                 break;
             }//선호하는 운동부위가 없다면 전 영상 추천
             else if(exercise[i]['exercise'] == 3){
-                point += 5;
+                point += 0;
                 console.log("운동부위 전신")
                 break;
             }//선호하는 부위가 있을 때 전신운동 추천
              //전신운동에는 선호하는 부위도 작용이 되기 때문
             else if(USERINFO[3][j] == exercise[i]['exercise']){
-                point+=20
+                point+=20;
                 temppoint = false;
                 console.log("운동부위 운동부위")
                 break;
@@ -203,7 +201,7 @@ function compare(){
             }//선호하는부위관련 없는운동
         }
         if(temppoint = true){
-            point -= 10;
+            point -= 20;
         }
         temppoint = false;
 
@@ -212,22 +210,24 @@ function compare(){
             // 1이 기구가 없을 때다
             if(USERINFO[4][j] == 3){
                 if(exercise[i]['tool'] == 3){
+                    point += 20;
                     console.log("기구X 맨몸")
                     break;
                 }//유저가 기구가 없을때 맨몸운동 추천
                 else{
-                    point-=20
+                    point-=50;
                     console.log("기구X 기구")
                     break;
                 }//유저가 기구가 없을때 기구운동 비추천
             }    
             else if(exercise[i]['tool'] == 3){
+                point += 10;
                 temppoint = false;
                 console.log("기구 맨몸")
                 break;
             }//유저가 기구가 있지만 맨몸운동
             else if(USERINFO[4][j] == exercise[i]['tool']){
-                point+=20;
+                point += 30;
                 temppoint = false;
                 console.log("기구 기구")
                 break;
@@ -239,32 +239,35 @@ function compare(){
             }//유저가 기구가 있지만 다른 기구 운동
         }
         if(temppoint = true){
-            point -= 20;
+            point -= 50;
         }
 
 
         //MBTI
         if(USERINFO[5][2] == exercise[i]['MBTI'][0] && USERINFO[5][3] == exercise[i]['MBTI'][1]){
-            point*=1.1            
+            point*=1.1;
+            console.log("1 is right")            
         }//뒤 두자리가 같을 때 (성격과 맞는 운동일 때)
         else if(USERINFO[5][2] == exercise[i]['MBTI2'][0] && USERINFO[5][3] == exercise[i]['MBTI2'][1]){
-            point*=1.1
+            point*=1.1;
+            console.log("2 is right")  
         }//뒤 두자리가 같을 때 (성격과 맞는 운동일 때)
         else{
-            point*=0.9
+            console.log("nothing is right")  
+            point*=0.9;
         }
 
         //BMI
         if(USERINFO[6] == 0){
             if(exercise[i]['BMI'] == 1){
-                point*=0.9
+                point*=1.0;
             }
-        }//유저가 비만이 아닐 때 다이어트 운동
+        }//유저가 비만이 아닐 때 전 운동
         else if(USERINFO[6] == exercise[i]['BMI']){
-            point*=1.1
+            point*=1.1;
         }//비만일 때 다이어트 관련 운동
         else{
-            point*=0.9
+            point*=0.9;
         }//다이어트 관련없는 운동
 
         point_list.push(point);
@@ -304,15 +307,16 @@ function compare(){
         //exerciseArea.innerHTML += "<a href=" + exercise[i]['link'] + " target='_blank'>"
         //+ exer_where[exercise[i]['exercise']].desc+exer_tool[exercise[i]['tool']].desc+exer_fat[exercise[i]['BMI']].desc
         //+ "</a> <br>";
-
         if(exercise[i]['point'] != exercise[i+1]['point']){
             
             if(count > 5){
                 break;
             }
-            count += (exercise[i]['point'] - exercise[i+1]['point'])
+            count += 1;
         }
-    
+        else{
+            count += 1;
+        }
     }
 }
 
